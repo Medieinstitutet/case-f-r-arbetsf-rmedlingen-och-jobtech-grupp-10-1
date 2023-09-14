@@ -28,3 +28,5 @@ Vid behov eftermiddags möte ca.1500.
 Signed by:
 
 @davidstalgren
+@Redicholas
+@alexwallden
