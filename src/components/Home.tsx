@@ -1,5 +1,6 @@
 import { getEnrichedOccupation } from '../services/enrichedOccupationsSearchService';
 import { postSearchQuery } from '../services/relatedOccupationsSearchService';
+import { RelatedOccupation } from './RelatedOccupation';
 
 export const Home = () => {
   const handleClick = async () => {
