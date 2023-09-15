@@ -9,6 +9,7 @@ import {
   ButtonVariation,
   TypographyVariation,
 } from '@digi/arbetsformedlingen';
+// import { Link } from 'react-router-dom';
 
 interface IRelatedOccupationProps {
   occupation: IRelatedOccupations;
@@ -16,7 +17,8 @@ interface IRelatedOccupationProps {
 
 export const RelatedOccupation = ({ occupation }: IRelatedOccupationProps) => {
   const handleClick = (id: string) => {
-    console.log({ id });
+    console.log(id);
+    // <Link to={`/relatedOccupation/${id}`} />;
   };
 
   return (
