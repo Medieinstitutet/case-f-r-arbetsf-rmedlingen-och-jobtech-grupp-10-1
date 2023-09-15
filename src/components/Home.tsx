@@ -1,4 +1,5 @@
 import { postSearchQuery } from '../services/relatedOccupationsSearchService';
+import { RelatedOccupation } from './RelatedOccupation';
 
 export const Home = () => {
   const handleClick = async () => {
@@ -10,6 +11,7 @@ export const Home = () => {
   return (
     <>
       <button onClick={handleClick}>Send mockdata</button>
+      <RelatedOccupation />
     </>
   );
 };
