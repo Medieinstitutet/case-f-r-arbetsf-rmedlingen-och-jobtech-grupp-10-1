@@ -6,8 +6,8 @@ export async function get<T>(url: string) {
   return response.data
 }
 
-export async function post<T>(url: string, data: T) {
-  const response = await axios.post<T>(`${url}+${data}`);
+export async function post<T>(url: string) {
+  const response = await axios.post<T>(url);
 
   return response.data
 }
