@@ -1,20 +1,11 @@
 import './App.scss';
-import { DigiButton } from '@digi/arbetsformedlingen-react';
-import { ButtonVariation } from '@digi/arbetsformedlingen';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './Router';
 
 function App() {
-  const handleClick = () => {
-    console.log('Hello');
-  };
-
   return (
     <>
-      <DigiButton
-        afVariation={ButtonVariation.PRIMARY}
-        onAfOnClick={handleClick}
-      >
-        Hello
-      </DigiButton>
+      <RouterProvider router={router}></RouterProvider>
     </>
   );
 }
