@@ -1,6 +1,7 @@
 import { DigiLayoutColumns } from '@digi/arbetsformedlingen-react';
 import { mockResponsePostSearchQuery } from '../mockResponsePostSearchQuery';
 import { IMatchByTextResponse } from '../models/IMatchByTextResponse';
+import { getEnrichedOccupation } from '../services/enrichedOccupationsSearchService';
 import { postSearchQuery } from '../services/relatedOccupationsSearchService';
 import { RelatedOccupation } from './RelatedOccupation';
 import {
@@ -13,6 +14,11 @@ export const Home = () => {
     const postData = 'html css javascript';
     const result = await postSearchQuery(postData);
     return result;
+  };
+  const handleEnrichedClick = async () => {
+    const id = 'GDHs_eoz_uKx';
+    const result = await getEnrichedOccupation(id);
+    console.log(result);
   };
 
   const response = mockResponsePostSearchQuery as IMatchByTextResponse;
@@ -28,6 +34,7 @@ export const Home = () => {
           <RelatedOccupation key={occupation.id} occupation={occupation} />
         ))}
       </DigiLayoutColumns>
+      <button onClick={handleEnrichedClick}>Send mockdata to enriched</button>
     </>
   );
 };
