@@ -1,5 +1,7 @@
 import './App.scss';
 import { postSearchQuery } from './services/relatedOccupationsSearchService';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './Router';
 
 function App() {
   const handleClick = async () => {
@@ -10,7 +12,9 @@ function App() {
 
   return (
     <>
+     <RouterProvider router={router}>
       <button onClick={handleClick}>Send mockdata</button>
+      </RouterProvider>
     </>
   );
 }
