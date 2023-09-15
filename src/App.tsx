@@ -1,20 +1,16 @@
 import './App.scss';
-import { DigiButton } from '@digi/arbetsformedlingen-react';
-import { ButtonVariation } from '@digi/arbetsformedlingen';
+import { postSearchQuery } from './services/relatedOccupationsSearchService';
 
 function App() {
-  const handleClick = () => {
-    console.log('Hello');
+  const handleClick = async () => {
+    const postData = 'html css javascript';
+    const result = await postSearchQuery(postData);
+    console.log(result);
   };
 
   return (
     <>
-      <DigiButton
-        afVariation={ButtonVariation.PRIMARY}
-        onAfOnClick={handleClick}
-      >
-        Hello
-      </DigiButton>
+      <button onClick={handleClick}>Send mockdata</button>
     </>
   );
 }
