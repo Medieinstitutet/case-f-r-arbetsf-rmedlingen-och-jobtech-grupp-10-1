@@ -1,10 +1,10 @@
-import { IRelatedOccupations } from "./IRelatedOccupations"
+import { IRelatedOccupations } from './IRelatedOccupations';
 
 export interface IMatchByTextResponse {
-  hits_returned: number,
+  hits_returned: number;
   identified_keywords_for_input: {
-    competencies: string[],
-    occupations: string[]
-  },
-  related_occupations: IRelatedOccupations[]
+    competencies: string[];
+    occupations: string[];
+  };
+  related_occupations: IRelatedOccupations[];
 }
