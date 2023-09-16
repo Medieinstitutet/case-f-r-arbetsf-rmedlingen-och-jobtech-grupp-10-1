@@ -6,7 +6,7 @@ export const Layout = () => {
   return (
     <>
       <Header />
-      <SideBar />
+      <SideBar/>
       <Outlet />
       {/* <sidebar>sidebar</sidebar> */}
     </>
