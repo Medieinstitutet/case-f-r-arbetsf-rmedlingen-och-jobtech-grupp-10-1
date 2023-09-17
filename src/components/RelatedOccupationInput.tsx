@@ -44,6 +44,11 @@ const RelatedOccupationInput = () => {
     setSearchWords((prev) => [...prev, ...updatedContent]);
   };
 
+  const resetErrors = () => {
+    setShowDuplicateError(false);
+    setShowLengthError(false);
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <TagsInput
@@ -55,6 +60,7 @@ const RelatedOccupationInput = () => {
         addKeys={[32, 9]}
         inputProps={{ placeholder: 'Nytt sökord' }}
         addOnBlur={true}
+        renderInput={(props) => <input {...props} onKeyUp={resetErrors}/>}
       />
       {showDuplicateError && ( // TODO: Lägg till AFs felmeddelande
         <p style={{ border: 'red solid 2px' }}>
