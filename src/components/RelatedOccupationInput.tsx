@@ -1,16 +1,19 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // https://www.npmjs.com/package/react-tagsinput
 
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 // import TagsInput from 'react-tagsinput';
 import { postSearchQuery } from '../services/relatedOccupationsSearchService';
 import './RelatedOccupationInput.scss';
 import { TagsInput } from 'react-tag-input-component';
+import { RelatedOccupationsContext } from '../contexts/RelatedOccupationsContext';
 
 const RelatedOccupationInput = () => {
   const [searchWords, setSearchWords] = useState<string[]>([]);
   const [showDuplicateError, setShowDuplicateError] = useState(false);
   const [showLengthError, setShowLengthError] = useState(false);
   const [pressedOnce, setPressedOnce] = useState(false);
+  const {setOccupationsResponse} = useContext(RelatedOccupationsContext)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
@@ -21,6 +24,7 @@ const RelatedOccupationInput = () => {
       const searchString = searchWords.join(' ');
       const response = await postSearchQuery(searchString);
       console.log(response);
+      setOccupationsResponse(response);
       setSearchWords([]);
     } else {
       setShowLengthError(true);
