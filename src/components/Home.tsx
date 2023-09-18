@@ -2,42 +2,61 @@ import { DigiLayoutColumns } from '@digi/arbetsformedlingen-react';
 import { mockResponsePostSearchQuery } from '../mockResponsePostSearchQuery';
 import { IMatchByTextResponse } from '../models/IMatchByTextResponse';
 import { getEnrichedOccupation } from '../services/enrichedOccupationsSearchService';
-import { postSearchQuery } from '../services/relatedOccupationsSearchService';
 import { RelatedOccupation } from './RelatedOccupation';
 import {
   LayoutColumnsElement,
   LayoutColumnsVariation,
 } from '@digi/arbetsformedlingen';
+import { useNavigate } from 'react-router-dom';
+import { RelatedOccupationsContext } from '../contexts/RelatedOccupationsContext';
+import { useContext, useEffect } from 'react';
+import { postSearchQuery } from '../services/relatedOccupationsSearchService';
 
 export const Home = () => {
-  const handleClick = async () => {
-    const postData = 'html css javascript';
-    const result = await postSearchQuery(postData);
-    console.log(result);
-    
-    return result;
-  };
-  const handleEnrichedClick = async () => {
-    const id = 'GDHs_eoz_uKx';
+
+  const navigate = useNavigate();
+  const handleClick = async (id: string) => {
     const result = await getEnrichedOccupation(id);
+    navigate(`/${id}`);
     console.log(result);
   };
 
-  const response = mockResponsePostSearchQuery as IMatchByTextResponse;
+  const { occupationsResponse, setOccupationsResponse } = useContext(
+    RelatedOccupationsContext
+  );
+
+  // const response = mockResponsePostSearchQuery as IMatchByTextResponse;
+
+  console.log(occupationsResponse);
+
+  useEffect(() => {
+    const getOccupations = async () => {
+      const occupations = await postSearchQuery('sjuksöterska sjukhus medicin patient vård vårdare sjuk frisk astma');
+      setOccupationsResponse(occupations);
+    };
+    getOccupations();
+  }, []);
+
+  useEffect(() => {
+    console.log(occupationsResponse);
+  }, [occupationsResponse]);
 
   return (
     <>
-      {/* <button onClick={handleClick}>Send mockdata</button> */}
+
       <DigiLayoutColumns
         afElement={LayoutColumnsElement.DIV}
         afVariation={LayoutColumnsVariation.TWO}
         style={{width: '80%'}}
       >
-        {response.related_occupations.map((occupation) => (
-          <RelatedOccupation key={occupation.id} occupation={occupation} />
+        {occupationsResponse.related_occupations?.map((occupation) => (
+          <RelatedOccupation
+            key={occupation.id}
+            occupation={occupation}
+            handleClick={handleClick}
+          />
         ))}
       </DigiLayoutColumns>
-      {/* <button onClick={handleEnrichedClick}>Send mockdata to enriched</button> */}
     </>
   );
 };
