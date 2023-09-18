@@ -45,7 +45,7 @@ export const EnrichedOccupation = () => {
   }, [id]);
 
   return (
-    <>
+    <div>
       {isLoading && (
         <DigiLoaderSpinner afSize={LoaderSpinnerSize.LARGE}></DigiLoaderSpinner>
       )}
@@ -64,6 +64,6 @@ export const EnrichedOccupation = () => {
           </DigiList>
         </DigiTypography>
       </DigiLayoutContainer>
-    </>
+    </div>
   );
 };

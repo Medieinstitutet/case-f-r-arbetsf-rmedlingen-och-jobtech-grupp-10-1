@@ -1,15 +1,15 @@
 import './App.scss';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './Router';
-import { Context } from './components/Context';
+import { OccupationsContextProvider } from './components/OccupationsContextProvider';
 
 function App() {
   return (
-    <>
-      <Context>
+    <div>
+      <OccupationsContextProvider>
         <RouterProvider router={router}></RouterProvider>
-      </Context>
-    </>
+      </OccupationsContextProvider>
+    </div>
   );
 }
 

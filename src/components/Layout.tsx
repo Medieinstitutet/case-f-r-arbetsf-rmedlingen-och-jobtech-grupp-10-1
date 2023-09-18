@@ -10,12 +10,14 @@ export const Layout = () => {
   const [open, setOpen] = useState(true);
 
   return (
-    <>
+    <div>
       <Header />
-      <DigiLayoutBlock afContainer={LayoutBlockContainer.NONE}>
-        <SideBar open={open} setOpen={setOpen} />
-        <Outlet />
+      <DigiLayoutBlock afContainer={LayoutBlockContainer.STATIC}>
+          <div>
+            <SideBar open={open} setOpen={setOpen} />
+            <Outlet />
+          </div>
       </DigiLayoutBlock>
-    </>
+    </div>
   );
 };
