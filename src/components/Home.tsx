@@ -27,16 +27,17 @@ export const Home = () => {
 
   return (
     <>
-      <button onClick={handleClick}>Send mockdata</button>
+      {/* <button onClick={handleClick}>Send mockdata</button> */}
       <DigiLayoutColumns
-        afElement={LayoutColumnsElement.UL}
+        afElement={LayoutColumnsElement.DIV}
         afVariation={LayoutColumnsVariation.TWO}
+        style={{width: '80%'}}
       >
         {response.related_occupations.map((occupation) => (
           <RelatedOccupation key={occupation.id} occupation={occupation} />
         ))}
       </DigiLayoutColumns>
-      <button onClick={handleEnrichedClick}>Send mockdata to enriched</button>
+      {/* <button onClick={handleEnrichedClick}>Send mockdata to enriched</button> */}
     </>
   );
 };

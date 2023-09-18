@@ -10,6 +10,7 @@ import {
   DigiUtilBreakpointObserver,
 } from '@digi/arbetsformedlingen-react';
 import RelatedOccupationInput from './RelatedOccupationInput';
+import { useState } from 'react';
 
 const SideBar = ({
   open,
@@ -18,18 +19,19 @@ const SideBar = ({
   open: boolean;
   setOpen: (status: boolean) => void;
 }) => {
+  const [large, setLarge] = useState(false);
   return (
-      <DigiUtilBreakpointObserver onAfOnLarge={() => console.log('Large')}>
+      <DigiUtilBreakpointObserver onAfOnMedium={() => setLarge(false)} onAfOnLarge={() => setLarge(true)}>
         <DigiNavigationSidebar
           afActive={open}
           afStickyHeader={false}
           afBackdrop={false}
           afPosition={NavigationSidebarPosition.START}
-          afVariation={NavigationSidebarVariation.PUSH}
+          afVariation={NavigationSidebarVariation.STATIC}
           afHideHeader={true}
           onAfOnClose={() => setOpen(false)}
           afMobilePosition={NavigationSidebarMobilePosition.END}
-          afMobileVariation={NavigationSidebarMobileVariation.FULLWIDTH}
+          afMobileVariation={NavigationSidebarMobileVariation.DEFAULT}
         >
           <RelatedOccupationInput />
         </DigiNavigationSidebar>
