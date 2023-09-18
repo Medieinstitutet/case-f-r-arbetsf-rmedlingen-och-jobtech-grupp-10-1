@@ -1,6 +1,11 @@
 import { createContext } from 'react';
 import { IMatchByTextResponse } from '../models/IMatchByTextResponse';
+import { IAction } from '../reducers/RelatedOccupationsReducer';
 
-export const RelatedOccupationsContext = createContext<IMatchByTextResponse>(
-  {} as IMatchByTextResponse
-);
+interface IRelatedOccupationsContext {
+  state: IMatchByTextResponse;
+  dispatch: React.Dispatch<IAction>;
+}
+
+export const RelatedOccupationsContext =
+  createContext<IRelatedOccupationsContext>({} as IRelatedOccupationsContext);

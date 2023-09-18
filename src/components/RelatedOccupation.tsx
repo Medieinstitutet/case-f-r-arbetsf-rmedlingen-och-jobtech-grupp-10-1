@@ -1,5 +1,6 @@
 import {
   DigiButton,
+  DigiExpandableAccordion,
   DigiLayoutContainer,
   DigiTypography,
 } from '@digi/arbetsformedlingen-react';
@@ -20,6 +21,17 @@ export const RelatedOccupation = ({
   handleClick,
 }: IRelatedOccupationProps) => {
   return (
+    // <DigiExpandableAccordion afHeading={occupation.occupation_label}>
+    //   <p>Yrkesgrupp: {occupation.occupation_group.occupation_group_label}</p>
+    //   <DigiButton
+    //     afSize={ButtonSize.SMALL}
+    //     afVariation={ButtonVariation.PRIMARY}
+    //     afFullWidth={false}
+    //     onAfOnClick={() => handleClick(occupation.id)}
+    //   >
+    //     Läs mer
+    //   </DigiButton>
+    // </DigiExpandableAccordion>
     <DigiLayoutContainer afVerticalPadding>
       <DigiTypography afVariation={TypographyVariation.SMALL}>
         <h2>{occupation.occupation_label}</h2>
