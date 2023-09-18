@@ -9,18 +9,16 @@ import {
   ButtonVariation,
   TypographyVariation,
 } from '@digi/arbetsformedlingen';
-// import { Link } from 'react-router-dom';
 
 interface IRelatedOccupationProps {
   occupation: IRelatedOccupations;
+  handleClick: (id: string) => void;
 }
 
-export const RelatedOccupation = ({ occupation }: IRelatedOccupationProps) => {
-  const handleClick = (id: string) => {
-    console.log(id);
-    // <Link to={`/relatedOccupation/${id}`} />;
-  };
-
+export const RelatedOccupation = ({
+  occupation,
+  handleClick,
+}: IRelatedOccupationProps) => {
   return (
     <DigiLayoutContainer afVerticalPadding>
       <DigiTypography afVariation={TypographyVariation.SMALL}>
