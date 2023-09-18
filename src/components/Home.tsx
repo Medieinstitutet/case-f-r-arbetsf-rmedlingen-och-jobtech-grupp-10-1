@@ -8,6 +8,9 @@ import {
   LayoutColumnsVariation,
 } from '@digi/arbetsformedlingen';
 import { useNavigate } from 'react-router-dom';
+import { RelatedOccupationsContext } from '../contexts/RelatedOccupationsContext';
+import { useContext, useEffect } from 'react';
+import { postSearchQuery } from '../services/relatedOccupationsSearchService';
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -17,7 +20,25 @@ export const Home = () => {
     console.log(result);
   };
 
-  const response = mockResponsePostSearchQuery as IMatchByTextResponse;
+  const { occupationsResponse, setOccupationsResponse } = useContext(
+    RelatedOccupationsContext
+  );
+
+  // const response = mockResponsePostSearchQuery as IMatchByTextResponse;
+
+  console.log(occupationsResponse);
+
+  useEffect(() => {
+    const getOccupations = async () => {
+      const occupations = await postSearchQuery('sjuksöterska sjukhus medicin patient vård vårdare sjuk frisk astma');
+      setOccupationsResponse(occupations);
+    };
+    getOccupations();
+  }, []);
+
+  useEffect(() => {
+    console.log(occupationsResponse);
+  }, [occupationsResponse]);
 
   return (
     <>
@@ -25,7 +46,7 @@ export const Home = () => {
         afElement={LayoutColumnsElement.UL}
         afVariation={LayoutColumnsVariation.TWO}
       >
-        {response.related_occupations.map((occupation) => (
+        {occupationsResponse.related_occupations?.map((occupation) => (
           <RelatedOccupation
             key={occupation.id}
             occupation={occupation}
