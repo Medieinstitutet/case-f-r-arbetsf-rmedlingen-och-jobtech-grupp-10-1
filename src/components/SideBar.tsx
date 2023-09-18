@@ -1,25 +1,39 @@
 import {
+  NavigationSidebarMobilePosition,
+  NavigationSidebarMobileVariation,
   NavigationSidebarPosition,
   NavigationSidebarVariation,
 } from '@digi/arbetsformedlingen';
 import {
+  DigiLayoutBlock,
   DigiNavigationSidebar,
-  // DigiUtilBreakpointObserver,
+  DigiUtilBreakpointObserver,
 } from '@digi/arbetsformedlingen-react';
 import RelatedOccupationInput from './RelatedOccupationInput';
 
-const SideBar = () => {
+const SideBar = ({
+  open,
+  setOpen,
+}: {
+  open: boolean;
+  setOpen: (status: boolean) => void;
+}) => {
   return (
-    <DigiNavigationSidebar
-      afActive={true}
-      afStickyHeader={true}
-      afBackdrop={false}
-      afPosition={NavigationSidebarPosition.START}
-      afVariation={NavigationSidebarVariation.OVER}
-      afCloseButtonText="Stäng"
-    >
-      <RelatedOccupationInput />
-    </DigiNavigationSidebar>
+      <DigiUtilBreakpointObserver onAfOnLarge={() => console.log('Large')}>
+        <DigiNavigationSidebar
+          afActive={open}
+          afStickyHeader={false}
+          afBackdrop={false}
+          afPosition={NavigationSidebarPosition.START}
+          afVariation={NavigationSidebarVariation.PUSH}
+          afHideHeader={true}
+          onAfOnClose={() => setOpen(false)}
+          afMobilePosition={NavigationSidebarMobilePosition.END}
+          afMobileVariation={NavigationSidebarMobileVariation.FULLWIDTH}
+        >
+          <RelatedOccupationInput />
+        </DigiNavigationSidebar>
+      </DigiUtilBreakpointObserver>
   );
 };
 

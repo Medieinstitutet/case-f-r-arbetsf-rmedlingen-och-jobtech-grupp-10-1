@@ -13,6 +13,7 @@ const RelatedOccupationInput = () => {
   const [pressedOnce, setPressedOnce] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+
     e.preventDefault();
 
     if (searchWords.length >= 3) {
@@ -25,26 +26,6 @@ const RelatedOccupationInput = () => {
       setShowLengthError(true);
     }
   };
-
-  // const handleInputChange = (content: string[], updatedContent: string[]) => {
-  //   setShowDuplicateError(false);
-  //   setShowLengthError(false);
-
-  //   const isDelete = !content.includes(updatedContent[0]);
-  //   if (isDelete) {
-  //     setSearchWords((prev) => [
-  //       ...prev.filter((word) => word !== updatedContent[0]),
-  //     ]);
-  //     return;
-  //   }
-
-  //   const isUnique = !searchWords.includes(updatedContent[0]);
-  //   if (!isUnique) {
-  //     setShowDuplicateError(true);
-  //     return;
-  //   }
-  //   setSearchWords((prev) => [...prev, ...updatedContent]);
-  // };
 
   const handleInputChange = (tags: string[]) => {
     setSearchWords([...tags]);
