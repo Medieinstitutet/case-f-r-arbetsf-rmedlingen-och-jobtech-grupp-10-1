@@ -9,7 +9,7 @@ export const RelatedOccupationsReducer = (
   occupations: IMatchByTextResponse,
   action: IAction
 ) => {
-  if (action.type === SET_RELATED_OCCUPATIONS) {
+  if (action.type === 'SET_RELATED_OCCUPATIONS') {
     return action.payload;
   }
   return occupations;
