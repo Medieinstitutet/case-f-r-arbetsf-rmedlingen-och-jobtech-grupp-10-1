@@ -13,6 +13,7 @@ import { useContext, useEffect } from 'react';
 import { postSearchQuery } from '../services/relatedOccupationsSearchService';
 
 export const Home = () => {
+
   const navigate = useNavigate();
   const handleClick = async (id: string) => {
     const result = await getEnrichedOccupation(id);
@@ -42,9 +43,11 @@ export const Home = () => {
 
   return (
     <>
+
       <DigiLayoutColumns
-        afElement={LayoutColumnsElement.UL}
+        afElement={LayoutColumnsElement.DIV}
         afVariation={LayoutColumnsVariation.TWO}
+        style={{width: '80%'}}
       >
         {occupationsResponse.related_occupations?.map((occupation) => (
           <RelatedOccupation
