@@ -4,6 +4,16 @@ import { getEnrichedOccupation } from '../services/enrichedOccupationsSearchServ
 import { IEnrichedOccupationsResponse } from '../models/IEnrichedOccupationsResponse';
 import { ICompetencies } from '../models/ICompetencies';
 import { IOccupationGroup } from '../models/IOccupationGroup';
+import {
+  DigiLayoutContainer,
+  DigiList,
+  DigiTypography,
+  DigiTypographyHeadingJumbo,
+} from '@digi/arbetsformedlingen-react';
+import {
+  ListType,
+  TypographyHeadingJumboLevel,
+} from '@digi/arbetsformedlingen';
 
 export const EnrichedOccupation = () => {
   const { id } = useParams();
@@ -24,22 +34,25 @@ export const EnrichedOccupation = () => {
           result.metadata.enriched_candidates_term_frequency.competencies
         );
         setOccupationGroup(result.occupation_group);
-
-        console.log(result);
       }
     };
     fetchData();
   }, [id]);
 
   return (
-    <div>
-      <h1>{occupation.occupation_label}</h1>
-      <p>{occupationGroup.occupation_group_label}</p>
-      <ul>
-        {competencies.slice(0, 10).map((competency) => (
-          <li key={competency.term}>{competency.term}</li>
-        ))}
-      </ul>
-    </div>
+    <DigiLayoutContainer afVerticalPadding>
+      <DigiTypography af-variation="large">
+        <DigiTypographyHeadingJumbo
+          afText={occupation.occupation_label}
+          afLevel={TypographyHeadingJumboLevel.H1}
+        ></DigiTypographyHeadingJumbo>
+        <p>{occupationGroup.occupation_group_label}</p>
+        <DigiList afListType={ListType.NUMBERED}>
+          {competencies.slice(0, 10).map((competency) => (
+            <li key={competency.term}>{competency.term}</li>
+          ))}
+        </DigiList>
+      </DigiTypography>
+    </DigiLayoutContainer>
   );
 };
