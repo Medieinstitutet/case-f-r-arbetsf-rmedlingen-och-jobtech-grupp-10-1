@@ -56,6 +56,7 @@ export const EnrichedOccupation = () => {
             afLevel={TypographyHeadingJumboLevel.H1}
           ></DigiTypographyHeadingJumbo>
           <p>{occupationGroup.occupation_group_label}</p>
+          <p>Dom 10 mest eftertraktade kompetenserna för detta yrket är:</p>
           <DigiList afListType={ListType.NUMBERED}>
             {competencies.slice(0, 10).map((competency) => (
               <li key={competency.term}>{competency.term}</li>
