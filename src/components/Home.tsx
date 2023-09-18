@@ -13,20 +13,14 @@ export const Home = () => {
   const navigate = useNavigate();
   const handleClick = async (id: string) => {
     const result = await getEnrichedOccupation(id);
-    console.log(result);
     navigate(`/${id}`);
-  };
-  const handleEnrichedClick = async () => {
-    // const id = 'GDHs_eoz_uKx';
-    // const result = await getEnrichedOccupation(id);
-    // console.log(result);
+    console.log(result);
   };
 
   const response = mockResponsePostSearchQuery as IMatchByTextResponse;
 
   return (
     <>
-      {/* <button onClick={handleClick}>Send mockdata</button> */}
       <DigiLayoutColumns
         afElement={LayoutColumnsElement.UL}
         afVariation={LayoutColumnsVariation.TWO}
@@ -39,7 +33,6 @@ export const Home = () => {
           />
         ))}
       </DigiLayoutColumns>
-      <button onClick={handleEnrichedClick}>Send mockdata to enriched</button>
     </>
   );
 };
