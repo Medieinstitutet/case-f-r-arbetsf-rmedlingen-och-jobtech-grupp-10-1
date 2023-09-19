@@ -2,7 +2,7 @@ import { createContext } from 'react';
 import { IMatchByTextResponse } from '../models/IMatchByTextResponse';
 import { IAction } from '../reducers/RelatedOccupationsReducer';
 
-interface IRelatedOccupationsContext {
+export interface IRelatedOccupationsContext {
   occupations: IMatchByTextResponse;
   dispatch: React.Dispatch<IAction>;
 }
