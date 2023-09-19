@@ -1,11 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // https://www.npmjs.com/package/react-tagsinput
 
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { postSearchQuery } from '../services/relatedOccupationsSearchService';
 import './RelatedOccupationInput.scss';
 import { TagsInput } from 'react-tag-input-component';
 import { RelatedOccupationsContext } from '../contexts/RelatedOccupationsContext';
+import {
+  FormTextareaVariation,
+  FormTextareaValidation,
+} from '@digi/arbetsformedlingen';
+import { DigiFormTextarea } from '@digi/arbetsformedlingen-react';
+import { DigiFormTextareaCustomEvent } from '@digi/arbetsformedlingen/dist/types/components';
 
 const RelatedOccupationInput = () => {
   const [searchWords, setSearchWords] = useState<string[]>([]);
@@ -13,6 +19,7 @@ const RelatedOccupationInput = () => {
   const [showLengthError, setShowLengthError] = useState(false);
   const [pressedOnce, setPressedOnce] = useState(false);
   const { dispatch } = useContext<any>(RelatedOccupationsContext);
+  const [searchText, setSearchText] = useState<string>('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,6 +33,7 @@ const RelatedOccupationInput = () => {
       setSearchWords([]);
     } else {
       setShowLengthError(true);
+      console.log(searchText);
     }
   };
 
@@ -52,8 +60,6 @@ const RelatedOccupationInput = () => {
   };
 
   const handleOnBlur = (e: any) => {
-    console.log('Inne i on blur');
-    console.log(e.target.onChange);
     const value = e.target.value;
     const isDuplicate = searchWords.includes(value);
     if (isDuplicate) {
@@ -67,9 +73,13 @@ const RelatedOccupationInput = () => {
     // e.target.value = '';
   };
 
-  useEffect(() => {
-    console.log(searchWords);
-  }, [searchWords]);
+  const handleSearchTextChange = (event: DigiFormTextareaCustomEvent<any>) => {
+    setSearchText(event.target.value);
+  };
+
+  // useEffect(() => {
+  //   console.log(searchWords);
+  // }, [searchWords]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -108,6 +118,13 @@ const RelatedOccupationInput = () => {
       )}
       <input type="submit" value="Sök" />
       <button onClick={() => setSearchWords([])}>Rensa</button>
+      <DigiFormTextarea
+        value={searchText}
+        onAfOnChange={handleSearchTextChange}
+        afLabel="Fri text"
+        afVariation={FormTextareaVariation.MEDIUM}
+        afValidation={FormTextareaValidation.NEUTRAL}
+      ></DigiFormTextarea>
     </form>
   );
 };
