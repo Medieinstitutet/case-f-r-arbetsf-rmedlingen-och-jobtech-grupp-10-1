@@ -6,7 +6,10 @@ import {
   LayoutColumnsVariation,
 } from '@digi/arbetsformedlingen';
 import { useNavigate } from 'react-router-dom';
-import { RelatedOccupationsContext } from '../contexts/RelatedOccupationsContext';
+import {
+  IRelatedOccupationsContext,
+  RelatedOccupationsContext,
+} from '../contexts/RelatedOccupationsContext';
 import { useContext } from 'react';
 
 export const Home = () => {
@@ -15,7 +18,9 @@ export const Home = () => {
     navigate(`/${id}`);
   };
 
-  const { occupationsResponse } = useContext(RelatedOccupationsContext);
+  const { occupations } = useContext<IRelatedOccupationsContext>(
+    RelatedOccupationsContext
+  );
 
   return (
     <div>
@@ -24,7 +29,7 @@ export const Home = () => {
         afVariation={LayoutColumnsVariation.TWO}
         style={{ width: '80%' }}
       >
-        {occupationsResponse.related_occupations?.map((occupation) => (
+        {occupations.related_occupations?.map((occupation) => (
           <RelatedOccupation
             key={occupation.id}
             occupation={occupation}

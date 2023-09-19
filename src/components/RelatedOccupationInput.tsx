@@ -2,7 +2,6 @@
 // https://www.npmjs.com/package/react-tagsinput
 
 import { useContext, useEffect, useState } from 'react';
-// import TagsInput from 'react-tagsinput';
 import { postSearchQuery } from '../services/relatedOccupationsSearchService';
 import './RelatedOccupationInput.scss';
 import { TagsInput } from 'react-tag-input-component';
@@ -13,10 +12,9 @@ const RelatedOccupationInput = () => {
   const [showDuplicateError, setShowDuplicateError] = useState(false);
   const [showLengthError, setShowLengthError] = useState(false);
   const [pressedOnce, setPressedOnce] = useState(false);
-  const {setOccupationsResponse} = useContext(RelatedOccupationsContext)
+  const { dispatch } = useContext<any>(RelatedOccupationsContext);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-
     e.preventDefault();
 
     if (searchWords.length >= 3) {
@@ -24,7 +22,7 @@ const RelatedOccupationInput = () => {
       const searchString = searchWords.join(' ');
       const response = await postSearchQuery(searchString);
       console.log(response);
-      setOccupationsResponse(response);
+      dispatch({ type: 'SET_RELATED_OCCUPATIONS', payload: response });
       setSearchWords([]);
     } else {
       setShowLengthError(true);
@@ -64,10 +62,10 @@ const RelatedOccupationInput = () => {
     }
     if (value === '') return;
     handleInputChange([...searchWords, value]);
-    e.target.value = ''
+    e.target.value = '';
     // setSearchWords((prev) => [...prev, e.target.value]);
     // e.target.value = '';
-  }
+  };
 
   useEffect(() => {
     console.log(searchWords);

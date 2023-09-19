@@ -1,10 +1,10 @@
 import { createContext } from 'react';
 import { IMatchByTextResponse } from '../models/IMatchByTextResponse';
-// import { IAction } from '../reducers/RelatedOccupationsReducer';
+import { IAction } from '../reducers/RelatedOccupationsReducer';
 
 interface IRelatedOccupationsContext {
-  occupationsResponse: IMatchByTextResponse;
-  setOccupationsResponse: React.Dispatch<React.SetStateAction<IMatchByTextResponse>>
+  occupations: IMatchByTextResponse;
+  dispatch: React.Dispatch<IAction>;
 }
 
 export const RelatedOccupationsContext =
