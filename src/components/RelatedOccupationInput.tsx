@@ -6,6 +6,12 @@ import { postSearchQuery } from '../services/relatedOccupationsSearchService';
 import './RelatedOccupationInput.scss';
 import { TagsInput } from 'react-tag-input-component';
 import { RelatedOccupationsContext } from '../contexts/RelatedOccupationsContext';
+import {
+  FormTextareaVariation,
+  FormTextareaValidation,
+} from '@digi/arbetsformedlingen';
+import { DigiFormTextarea } from '@digi/arbetsformedlingen-react';
+import { DigiFormTextareaCustomEvent } from '@digi/arbetsformedlingen/dist/types/components';
 
 const RelatedOccupationInput = () => {
   const [searchWords, setSearchWords] = useState<string[]>([]);
@@ -13,19 +19,24 @@ const RelatedOccupationInput = () => {
   const [showLengthError, setShowLengthError] = useState(false);
   const [pressedOnce, setPressedOnce] = useState(false);
   const { dispatch } = useContext<any>(RelatedOccupationsContext);
+  const [searchText, setSearchText] = useState<string>('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (searchWords.length >= 3) {
+    const searchString = searchWords.join(' ');
+    const query = searchString + ' ' + searchText;
+    const queryLength = query.split(' ').length;
+    console.log(query);
+    if (searchWords.length >= 3 || queryLength >= 3) {
       setShowLengthError(false);
-      const searchString = searchWords.join(' ');
-      const response = await postSearchQuery(searchString);
+      const response = await postSearchQuery(query);
       console.log(response);
       dispatch({ type: 'SET_RELATED_OCCUPATIONS', payload: response });
       setSearchWords([]);
     } else {
       setShowLengthError(true);
+      console.log(searchText);
     }
   };
 
@@ -52,8 +63,6 @@ const RelatedOccupationInput = () => {
   };
 
   const handleOnBlur = (e: any) => {
-    console.log('Inne i on blur');
-    console.log(e.target.onChange);
     const value = e.target.value;
     const isDuplicate = searchWords.includes(value);
     if (isDuplicate) {
@@ -67,9 +76,13 @@ const RelatedOccupationInput = () => {
     // e.target.value = '';
   };
 
-  useEffect(() => {
-    console.log(searchWords);
-  }, [searchWords]);
+  const handleSearchTextChange = (event: DigiFormTextareaCustomEvent<any>) => {
+    setSearchText(event.target.value);
+  };
+
+  // useEffect(() => {
+  //   console.log(searchWords);
+  // }, [searchWords]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -106,8 +119,22 @@ const RelatedOccupationInput = () => {
           Du måste lägga till minst 3 ord
         </p>
       )}
+      <DigiFormTextarea
+        value={searchText}
+        onAfOnChange={handleSearchTextChange}
+        afLabel="Fritext sök"
+        afVariation={FormTextareaVariation.MEDIUM}
+        afValidation={FormTextareaValidation.NEUTRAL}
+      ></DigiFormTextarea>
       <input type="submit" value="Sök" />
-      <button onClick={() => setSearchWords([])}>Rensa</button>
+      <button
+        onClick={() => {
+          setSearchWords([]);
+          setSearchText('');
+        }}
+      >
+        Rensa
+      </button>
     </form>
   );
 };
