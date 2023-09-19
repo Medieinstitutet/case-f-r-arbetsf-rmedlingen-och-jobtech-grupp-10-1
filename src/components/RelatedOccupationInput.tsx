@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // https://www.npmjs.com/package/react-tagsinput
 
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { postSearchQuery } from '../services/relatedOccupationsSearchService';
 import './RelatedOccupationInput.scss';
 import { TagsInput } from 'react-tag-input-component';
-import { RelatedOccupationsContext } from '../contexts/RelatedOccupationsContext';
+import {
+  IRelatedOccupationsContext,
+  RelatedOccupationsContext,
+} from '../contexts/RelatedOccupationsContext';
 import {
   FormTextareaVariation,
   FormTextareaValidation,
@@ -18,7 +21,9 @@ const RelatedOccupationInput = () => {
   const [showDuplicateError, setShowDuplicateError] = useState(false);
   const [showLengthError, setShowLengthError] = useState(false);
   const [pressedOnce, setPressedOnce] = useState(false);
-  const { dispatch } = useContext<any>(RelatedOccupationsContext);
+  const { dispatch } = useContext<IRelatedOccupationsContext>(
+    RelatedOccupationsContext
+  );
   const [searchText, setSearchText] = useState<string>('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -33,6 +38,10 @@ const RelatedOccupationInput = () => {
       const response = await postSearchQuery(query);
       console.log(response);
       dispatch({ type: 'SET_RELATED_OCCUPATIONS', payload: response });
+      dispatch({
+        type: 'SET_LATEST_SEARCH',
+        payload: { title: '', keywords: searchString, freeText: searchText },
+      });
       setSearchWords([]);
     } else {
       setShowLengthError(true);
