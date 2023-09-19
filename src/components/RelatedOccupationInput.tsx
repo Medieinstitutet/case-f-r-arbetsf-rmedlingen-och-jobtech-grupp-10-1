@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // https://www.npmjs.com/package/react-tagsinput
 
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { postSearchQuery } from '../services/relatedOccupationsSearchService';
 import './RelatedOccupationInput.scss';
 import { TagsInput } from 'react-tag-input-component';
@@ -24,11 +24,12 @@ const RelatedOccupationInput = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (searchWords.length >= 3) {
+    const searchString = searchWords.join(' ');
+    const query = searchString + ' ' + searchText;
+    const queryLength = query.split(' ').length;
+    console.log(query);
+    if (searchWords.length >= 3 || queryLength >= 3) {
       setShowLengthError(false);
-      const searchString = searchWords.join(' ');
-      const query = searchString + ' ' + searchText;
-      console.log(query);
       const response = await postSearchQuery(query);
       console.log(response);
       dispatch({ type: 'SET_RELATED_OCCUPATIONS', payload: response });
@@ -118,15 +119,22 @@ const RelatedOccupationInput = () => {
           Du måste lägga till minst 3 ord
         </p>
       )}
-      <input type="submit" value="Sök" />
-      <button onClick={() => setSearchWords([])}>Rensa</button>
       <DigiFormTextarea
         value={searchText}
         onAfOnChange={handleSearchTextChange}
-        afLabel="Fri text"
+        afLabel="Fritext sök"
         afVariation={FormTextareaVariation.MEDIUM}
         afValidation={FormTextareaValidation.NEUTRAL}
       ></DigiFormTextarea>
+      <input type="submit" value="Sök" />
+      <button
+        onClick={() => {
+          setSearchWords([]);
+          setSearchText('');
+        }}
+      >
+        Rensa
+      </button>
     </form>
   );
 };
