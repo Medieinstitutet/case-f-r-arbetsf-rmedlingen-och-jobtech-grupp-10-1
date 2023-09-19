@@ -27,7 +27,9 @@ const RelatedOccupationInput = () => {
     if (searchWords.length >= 3) {
       setShowLengthError(false);
       const searchString = searchWords.join(' ');
-      const response = await postSearchQuery(searchString);
+      const query = searchString + ' ' + searchText;
+      console.log(query);
+      const response = await postSearchQuery(query);
       console.log(response);
       dispatch({ type: 'SET_RELATED_OCCUPATIONS', payload: response });
       setSearchWords([]);
