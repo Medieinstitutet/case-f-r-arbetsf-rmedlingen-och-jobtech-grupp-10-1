@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getEnrichedOccupation } from '../services/enrichedOccupationsSearchService';
 import { IEnrichedOccupationsResponse } from '../models/IEnrichedOccupationsResponse';
 import { ICompetencies } from '../models/ICompetencies';
@@ -55,6 +55,7 @@ export const EnrichedOccupation = () => {
             afText={occupation.occupation_label}
             afLevel={TypographyHeadingJumboLevel.H1}
           ></DigiTypographyHeadingJumbo>
+          <Link to={'/related-occupations'}>Tillbaka</Link>
           <p>{occupationGroup.occupation_group_label}</p>
           <p>Dom 10 mest eftertraktade kompetenserna för detta yrket är:</p>
           <DigiList afListType={ListType.NUMBERED}>
