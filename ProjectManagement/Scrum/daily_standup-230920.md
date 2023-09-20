@@ -4,6 +4,7 @@
 
 Yesterday we together fixed the reducer again to somewhat of the old way again. Added more of a global state.
 We added pagination to the serarch result that used this new context latestSearch to make it work.
+Start the day with experimenting in using styled-components together with the design-system and later I'll focus on adding a Spinner to the search
 
 ## NP
 

@@ -8,7 +8,7 @@ import {
   LayoutColumnsElement,
   LayoutColumnsVariation,
 } from '@digi/arbetsformedlingen';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   IRelatedOccupationsContext,
   RelatedOccupationsContext,
@@ -19,6 +19,7 @@ import { postSearchQuery } from '../services/relatedOccupationsSearchService';
 
 const ListRelatedOccupations = () => {
   const navigate = useNavigate();
+  const [searchParams, setSearchparams] = useSearchParams({ activePage: '1' });
   const handleClick = async (id: string) => {
     navigate(`/related-occupations/${id}`);
   };
@@ -40,20 +41,27 @@ const ListRelatedOccupations = () => {
     const response = await postSearchQuery(newQuery);
     dispatch({ type: 'SET_RELATED_OCCUPATIONS', payload: response });
     setCurrentResultStart(event.detail * 10);
+    setSearchparams(
+      (prev) => {
+        prev.set('activePage', event.detail.toString());
+        return prev;
+      },
+      { replace: true }
+    );
   }
 
   useEffect(() => {
     if (!state.occupations) {
       navigate('/');
     }
-  })
+  });
 
   return (
     <div>
       {state.occupations?.hits_returned ? (
         <DigiNavigationPagination
           afTotalPages={Math.floor(state.occupations.hits_total / 10)}
-          afInitActive-page={1}
+          afInitActive-page={searchParams.get('activePage')}
           afCurrentResultStart={currentResultStart}
           afCurrentResultEnd={currentResultStart + 9}
           afTotalResults={state.occupations.hits_total}
