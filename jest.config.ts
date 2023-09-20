@@ -19,5 +19,6 @@ export default {
       
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   modulePaths: ['<rootDir>'],
+  modulePathIgnorePatterns: ['<rootDir>/src/__tests__/mocks', '<rootDir>/src/__tests__/setupTests.ts'],
   testEnvironment: 'jsdom',
 };
