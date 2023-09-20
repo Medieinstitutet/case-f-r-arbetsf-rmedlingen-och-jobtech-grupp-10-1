@@ -18,11 +18,9 @@ export const Home = () => {
           </p>
         </DigiTypography>
       </DigiLayoutContainer>
-      <DigiLayoutContainer afVerticalPadding>
-        <DigiTypography>
-          <RelatedOccupationInput />
-        </DigiTypography>
-      </DigiLayoutContainer>
+      <DigiTypography>
+        <RelatedOccupationInput />
+      </DigiTypography>
     </DigiLayoutBlock>
   );
 };

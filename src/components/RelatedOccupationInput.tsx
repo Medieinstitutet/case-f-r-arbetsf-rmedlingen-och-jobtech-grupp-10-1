@@ -91,7 +91,7 @@ const RelatedOccupationInput = () => {
   };
 
   return (
-    <DigiLayoutContainer>
+    <DigiLayoutContainer afVerticalPadding>
       <div>
         <TagsInput
           value={searchWords}

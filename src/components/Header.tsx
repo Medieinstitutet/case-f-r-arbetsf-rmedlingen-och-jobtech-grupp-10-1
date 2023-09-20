@@ -4,7 +4,7 @@ import {
   TypographyVariation,
 } from '@digi/arbetsformedlingen';
 import {
-  DigiIconHome,
+  // DigiIconHome,
   DigiLayoutBlock,
   DigiTypography,
 } from '@digi/arbetsformedlingen-react';
@@ -23,7 +23,7 @@ export const Header = () => {
           <Link to={'/'}>
             <h1 className="headerH1">YrkesOraklet</h1>
           </Link>
-          <DigiIconHome />
+          {/* <DigiIconHome /> */}
         </DigiTypography>
       </DigiLayoutBlock>
     </header>

@@ -6,12 +6,12 @@ import { ICompetencies } from '../models/ICompetencies';
 import { IOccupationGroup } from '../models/IOccupationGroup';
 import {
   DigiBarChart,
-  DigiIconArrowBack,
   DigiButton,
   DigiLayoutContainer,
   DigiLoaderSpinner,
   DigiTypography,
   DigiTypographyHeadingJumbo,
+  DigiIconArrowLeft,
 } from '@digi/arbetsformedlingen-react';
 import {
   ButtonSize,
@@ -93,11 +93,7 @@ export const EnrichedOccupation = () => {
             afSize={ButtonSize.SMALL}
             afVariation={ButtonVariation.FUNCTION}
           >
-            {' '}
-            <DigiIconArrowBack
-              afTitle="Tillbaka"
-              style={{ width: '35px' }}
-            ></DigiIconArrowBack>
+            <DigiIconArrowLeft afTitle="Tillbaka" style={{ width: '35px' }} />
           </DigiButton>
           <div className="chartContainer">
             {competencies.length !== 0 ? (
