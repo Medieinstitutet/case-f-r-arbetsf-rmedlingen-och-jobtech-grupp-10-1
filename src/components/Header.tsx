@@ -6,6 +6,7 @@ import {
   DigiLayoutBlock,
   DigiTypography,
 } from '@digi/arbetsformedlingen-react';
+import { Link } from 'react-router-dom';
 
 export const Header = () => {
   return (
@@ -15,7 +16,9 @@ export const Header = () => {
         afVerticalPadding={true}
       >
         <DigiTypography afVariation={TypographyVariation.LARGE}>
-          <h1 className="headerH1">YrkesOraklet</h1>
+          <Link to={'/'}>
+            <h1 className="headerH1">YrkesOraklet</h1>
+          </Link>
         </DigiTypography>
       </DigiLayoutBlock>
     </header>

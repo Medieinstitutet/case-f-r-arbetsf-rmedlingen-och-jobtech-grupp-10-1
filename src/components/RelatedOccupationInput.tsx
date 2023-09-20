@@ -1,37 +1,64 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // https://www.npmjs.com/package/react-tagsinput
 
-import { useContext, useEffect, useState } from 'react';
-// import TagsInput from 'react-tagsinput';
+import { useContext, useState } from 'react';
 import { postSearchQuery } from '../services/relatedOccupationsSearchService';
 import './RelatedOccupationInput.scss';
 import { TagsInput } from 'react-tag-input-component';
-import { RelatedOccupationsContext } from '../contexts/RelatedOccupationsContext';
+import {
+  IRelatedOccupationsContext,
+  RelatedOccupationsContext,
+} from '../contexts/RelatedOccupationsContext';
+import {
+  FormTextareaVariation,
+  FormTextareaValidation,
+} from '@digi/arbetsformedlingen';
+import {
+  DigiFormInput,
+  DigiFormTextarea,
+  DigiLayoutContainer,
+} from '@digi/arbetsformedlingen-react';
+import { DigiFormTextareaCustomEvent } from '@digi/arbetsformedlingen/dist/types/components';
+import { useNavigate } from 'react-router-dom';
 
 const RelatedOccupationInput = () => {
   const [searchWords, setSearchWords] = useState<string[]>([]);
   const [showDuplicateError, setShowDuplicateError] = useState(false);
   const [showLengthError, setShowLengthError] = useState(false);
   const [pressedOnce, setPressedOnce] = useState(false);
-  const {setOccupationsResponse} = useContext(RelatedOccupationsContext)
+  const { dispatch } = useContext<IRelatedOccupationsContext>(
+    RelatedOccupationsContext
+  );
+  const [searchText, setSearchText] = useState<string>('');
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-
-    e.preventDefault();
-
-    if (searchWords.length >= 3) {
+  const handleSubmit = async () => {
+    const searchString = searchWords.join(' ');
+    const query = searchString + ' ' + searchText;
+    const queryLength = query.split(' ').length;
+    if (searchWords.length >= 3 || queryLength >= 3) {
       setShowLengthError(false);
-      const searchString = searchWords.join(' ');
-      const response = await postSearchQuery(searchString);
-      console.log(response);
-      setOccupationsResponse(response);
+      const response = await postSearchQuery(query);
+      dispatch({ type: 'SET_RELATED_OCCUPATIONS', payload: response });
+      dispatch({
+        type: 'SET_LATEST_SEARCH',
+        payload: { title: '', keywords: searchString, freeText: searchText },
+      });
       setSearchWords([]);
+      setSearchText('');
+      navigate('/related-occupations');
     } else {
       setShowLengthError(true);
+      console.log(searchText);
     }
   };
 
   const handleInputChange = (tags: string[]) => {
+    console.log(tags);
+
+    if (tags[tags.length - 1] === ' ') {
+      return;
+    }
     setSearchWords([...tags]);
   };
 
@@ -48,14 +75,10 @@ const RelatedOccupationInput = () => {
   };
 
   const handleOnExisting = () => {
-    console.log('Inne i on existing');
-
     setShowDuplicateError(true);
   };
 
   const handleOnBlur = (e: any) => {
-    console.log('Inne i on blur');
-    console.log(e.target.onChange);
     const value = e.target.value;
     const isDuplicate = searchWords.includes(value);
     if (isDuplicate) {
@@ -64,53 +87,57 @@ const RelatedOccupationInput = () => {
     }
     if (value === '') return;
     handleInputChange([...searchWords, value]);
-    e.target.value = ''
-    // setSearchWords((prev) => [...prev, e.target.value]);
-    // e.target.value = '';
-  }
+    e.target.value = '';
+  };
 
-  useEffect(() => {
-    console.log(searchWords);
-  }, [searchWords]);
+  const handleSearchTextChange = (event: DigiFormTextareaCustomEvent<any>) => {
+    setSearchText(event.target.value);
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <TagsInput
-        value={searchWords}
-        onChange={(tags) => handleInputChange(tags)}
-        onRemoved={(tag) =>
-          setSearchWords(searchWords.filter((t) => t !== tag))
-        }
-        separators={['Enter', 'Tab', ' ', ',']}
-        onExisting={handleOnExisting}
-        onKeyUp={resetErrors}
-        onBlur={handleOnBlur}
-        placeHolder="Sökord"
-      />
-      {/* <TagsInput
-        value={searchWords}
-        onChange={(content, updatedContent) =>
-          handleInputChange(content, updatedContent)
-        }
-        // Lägger till space, tab som en avgränsare för att lägga till nytt ord
-        addKeys={[32, 9]}
-        inputProps={{ placeholder: 'Nytt sökord' }}
-        addOnBlur={true}
-        renderInput={(props) => <input {...props} onKeyUp={resetErrors}/>}
-      /> */}
-      {showDuplicateError && ( // TODO: Lägg till AFs felmeddelande
-        <p style={{ border: 'red solid 2px' }}>
-          Du kan inte lägga till samma ord flera gånger
-        </p>
-      )}
-      {showLengthError && ( // TODO: Lägg till AFs felmeddelande
-        <p style={{ border: 'red solid 2px' }}>
-          Du måste lägga till minst 3 ord
-        </p>
-      )}
-      <input type="submit" value="Sök" />
-      <button onClick={() => setSearchWords([])}>Rensa</button>
-    </form>
+    <DigiLayoutContainer>
+      <div>
+        <TagsInput
+          value={searchWords}
+          onChange={(tags) => handleInputChange(tags)}
+          onRemoved={(tag) =>
+            setSearchWords(searchWords.filter((t) => t !== tag))
+          }
+          separators={['Enter', 'Tab', ' ', ',']}
+          onExisting={handleOnExisting}
+          onKeyUp={resetErrors}
+          onBlur={handleOnBlur}
+          placeHolder="Sökord"
+        />
+        {showDuplicateError && ( // TODO: Lägg till AFs felmeddelande
+          <p style={{ border: 'red solid 2px' }}>
+            Du kan inte lägga till samma ord flera gånger
+          </p>
+        )}
+        {showLengthError && ( // TODO: Lägg till AFs felmeddelande
+          <p style={{ border: 'red solid 2px' }}>
+            Du måste lägga till minst 3 ord
+          </p>
+        )}
+        <DigiFormTextarea
+          value={searchText}
+          onAfOnChange={handleSearchTextChange}
+          afLabel="Fritext sök"
+          afVariation={FormTextareaVariation.MEDIUM}
+          afValidation={FormTextareaValidation.NEUTRAL}
+        />
+        <DigiFormInput afLabel="Titel" />
+        <button onClick={handleSubmit}>Sök</button>
+        <button
+          onClick={() => {
+            setSearchWords([]);
+            setSearchText('');
+          }}
+        >
+          Rensa
+        </button>
+      </div>
+    </DigiLayoutContainer>
   );
 };
 

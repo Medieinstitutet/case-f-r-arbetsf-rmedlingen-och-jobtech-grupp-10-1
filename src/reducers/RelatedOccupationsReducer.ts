@@ -1,16 +1,25 @@
+import { ILatestSearch } from '../models/ILatestSearch';
 import { IMatchByTextResponse } from '../models/IMatchByTextResponse';
 
-export interface IAction {
-  type: string;
+export type IAction = {
+  type: 'SET_RELATED_OCCUPATIONS';
   payload: IMatchByTextResponse;
+} | {type: 'SET_LATEST_SEARCH'; payload: ILatestSearch}
+
+export interface IRelatedOccupationsState {
+  occupations: IMatchByTextResponse,
+  latestSearch: ILatestSearch
 }
 
 export const RelatedOccupationsReducer = (
-  occupations: IMatchByTextResponse,
+  state: IRelatedOccupationsState,
   action: IAction
 ) => {
   if (action.type === 'SET_RELATED_OCCUPATIONS') {
-    return action.payload;
+    return {...state, occupations: action.payload}
   }
-  return occupations;
+  else if (action.type === 'SET_LATEST_SEARCH'){
+    return {...state, latestSearch: action.payload}
+  }
+  return state;
 };

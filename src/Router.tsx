@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { EnrichedOccupation } from './components/EnrichedOccupation';
+import ListRelatedOccupations from './components/ListRelatedOccupations';
 
 export const router = createBrowserRouter([
   {
@@ -9,7 +10,8 @@ export const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: '/', element: <Home /> },
-      { path: '/:id', element: <EnrichedOccupation /> },
+      { path: '/related-occupations', element: <ListRelatedOccupations /> },
+      { path: '/related-occupations/:id', element: <EnrichedOccupation /> },
     ],
   },
 ]);
