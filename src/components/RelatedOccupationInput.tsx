@@ -19,6 +19,7 @@ import {
   DigiLayoutContainer,
 } from '@digi/arbetsformedlingen-react';
 import { DigiFormTextareaCustomEvent } from '@digi/arbetsformedlingen/dist/types/components';
+import { useNavigate } from 'react-router-dom';
 
 const RelatedOccupationInput = () => {
   const [searchWords, setSearchWords] = useState<string[]>([]);
@@ -29,6 +30,7 @@ const RelatedOccupationInput = () => {
     RelatedOccupationsContext
   );
   const [searchText, setSearchText] = useState<string>('');
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     const searchString = searchWords.join(' ');
@@ -44,6 +46,7 @@ const RelatedOccupationInput = () => {
       });
       setSearchWords([]);
       setSearchText('');
+      navigate('/related-occupations');
     } else {
       setShowLengthError(true);
       console.log(searchText);
