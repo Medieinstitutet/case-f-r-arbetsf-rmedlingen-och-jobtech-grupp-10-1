@@ -79,7 +79,10 @@ export const EnrichedOccupation = () => {
       )}
       <DigiLayoutContainer afVerticalPadding>
         <Link to={'/related-occupations'}>
-          <DigiIconArrowBack afTitle="Tillbaka"></DigiIconArrowBack>
+          <DigiIconArrowBack
+            afTitle="Tillbaka"
+            style={{ width: '35px' }}
+          ></DigiIconArrowBack>
         </Link>
         <DigiTypography af-variation="large">
           <DigiTypographyHeadingJumbo
