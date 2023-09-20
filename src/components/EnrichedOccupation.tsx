@@ -16,6 +16,7 @@ import {
   TypographyHeadingJumboLevel,
 } from '@digi/arbetsformedlingen';
 import { IChartData } from '../models/IChartData';
+import './EnrichedOccupation.scss';
 
 export const EnrichedOccupation = () => {
   const { id } = useParams();
@@ -49,36 +50,30 @@ export const EnrichedOccupation = () => {
       xValues: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       series: [
         {
-          yValues:
-            // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            competencies
-              .slice(0, 10)
-              .map((competency) => competency.percent_for_occupation),
+          yValues: competencies
+            .slice(0, 10)
+            .map((competency) => competency.percent_for_occupation),
           title: 'Kompetens',
           colorToken: 'blue',
         },
       ],
-      xValueNames:
-        // ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
-        competencies.slice(0, 10).map((competency) => competency.term),
+      xValueNames: competencies
+        .slice(0, 10)
+        .map((competency) => competency.term),
     },
     x: 'Kompetens',
     y: 'Procent',
-    title: 'Kompetenser',
-    subTitle: 'Dom 10 mest eftertraktade kompetenserna för detta yrket är:',
-    meta: {
-      valueLabels: true,
-      labelProperties: {
-        significantDigits: 3,
-        shortHand: true,
-      },
-    },
+    title: 'Dom 10 mest eftertraktade Kompetenserna',
+    subTitle: `Yrkesgrupp: ${occupationGroup.occupation_group_label}`,
   };
 
   return (
     <div>
       {isLoading && (
-        <DigiLoaderSpinner afSize={LoaderSpinnerSize.LARGE}></DigiLoaderSpinner>
+        <DigiLoaderSpinner
+          afSize={LoaderSpinnerSize.LARGE}
+          className="spinner"
+        ></DigiLoaderSpinner>
       )}
       <DigiLayoutContainer afVerticalPadding>
         <DigiTypography af-variation="large">
@@ -86,7 +81,13 @@ export const EnrichedOccupation = () => {
             afText={occupation.occupation_label}
             afLevel={TypographyHeadingJumboLevel.H1}
           ></DigiTypographyHeadingJumbo>
-          <DigiBarChart afChartData={chartData}></DigiBarChart>
+          <div className="chartContainer">
+            {competencies.length !== 0 ? (
+              <DigiBarChart afChartData={chartData}></DigiBarChart>
+            ) : (
+              <></>
+            )}
+          </div>
         </DigiTypography>
       </DigiLayoutContainer>
     </div>
