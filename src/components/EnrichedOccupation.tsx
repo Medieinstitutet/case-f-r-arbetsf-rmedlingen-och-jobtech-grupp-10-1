@@ -64,7 +64,10 @@ export const EnrichedOccupation = () => {
       ],
       xValueNames: competencies
         .slice(0, 10)
-        .map((competency) => competency.term),
+        .map(
+          (competency) =>
+            competency.term.charAt(0).toUpperCase() + competency.term.slice(1)
+        ),
     },
     x: 'Kompetens',
     y: 'Procent',
