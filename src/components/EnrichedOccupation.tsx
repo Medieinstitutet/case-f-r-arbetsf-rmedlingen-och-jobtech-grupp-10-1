@@ -6,6 +6,7 @@ import { ICompetencies } from '../models/ICompetencies';
 import { IOccupationGroup } from '../models/IOccupationGroup';
 import {
   DigiBarChart,
+  DigiIconArrowBack,
   DigiLayoutContainer,
   DigiLoaderSpinner,
   DigiTypography,
@@ -77,12 +78,14 @@ export const EnrichedOccupation = () => {
         ></DigiLoaderSpinner>
       )}
       <DigiLayoutContainer afVerticalPadding>
+        <Link to={'/related-occupations'}>
+          <DigiIconArrowBack afTitle="Tillbaka"></DigiIconArrowBack>
+        </Link>
         <DigiTypography af-variation="large">
           <DigiTypographyHeadingJumbo
             afText={occupation.occupation_label}
             afLevel={TypographyHeadingJumboLevel.H1}
           ></DigiTypographyHeadingJumbo>
-          <Link to={'/related-occupations'}>Tillbaka</Link>
           <div className="chartContainer">
             {competencies.length !== 0 ? (
               <DigiBarChart afChartData={chartData}></DigiBarChart>

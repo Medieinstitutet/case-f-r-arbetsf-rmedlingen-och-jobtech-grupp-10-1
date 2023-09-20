@@ -14,6 +14,7 @@ import {
   FormTextareaValidation,
 } from '@digi/arbetsformedlingen';
 import {
+  DigiButton,
   DigiFormInput,
   DigiFormTextarea,
   DigiLayoutContainer,
@@ -49,13 +50,10 @@ const RelatedOccupationInput = () => {
       navigate('/related-occupations');
     } else {
       setShowLengthError(true);
-      console.log(searchText);
     }
   };
 
   const handleInputChange = (tags: string[]) => {
-    console.log(tags);
-
     if (tags[tags.length - 1] === ' ') {
       return;
     }
@@ -68,8 +66,6 @@ const RelatedOccupationInput = () => {
       setShowLengthError(false);
       setPressedOnce(false);
     } else if (showDuplicateError || showLengthError) {
-      console.log('pressedOnce', pressedOnce);
-
       setPressedOnce(true);
     }
   };
@@ -127,15 +123,22 @@ const RelatedOccupationInput = () => {
           afValidation={FormTextareaValidation.NEUTRAL}
         />
         <DigiFormInput afLabel="Titel" />
-        <button onClick={handleSubmit}>Sök</button>
-        <button
-          onClick={() => {
+        <DigiButton
+          onAfOnClick={handleSubmit}
+          af-variation="primary"
+          style={{ marginRight: '0.5rem' }}
+        >
+          Sök
+        </DigiButton>
+        <DigiButton
+          af-variation="secondary"
+          onAfOnClick={() => {
             setSearchWords([]);
             setSearchText('');
           }}
         >
           Rensa
-        </button>
+        </DigiButton>
       </div>
     </DigiLayoutContainer>
   );
