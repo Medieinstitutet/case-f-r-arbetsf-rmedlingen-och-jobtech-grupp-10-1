@@ -9,6 +9,7 @@ import {
   ButtonVariation,
   TypographyVariation,
 } from '@digi/arbetsformedlingen';
+import { Button, PrimaryButton } from './styled/Buttons';
 
 interface IRelatedOccupationProps {
   occupation: IRelatedOccupations;
@@ -24,14 +25,14 @@ export const RelatedOccupation = ({
       <DigiTypography afVariation={TypographyVariation.SMALL}>
         <h2>{occupation.occupation_label}</h2>
         <p>Yrkesgrupp: {occupation.occupation_group.occupation_group_label}</p>
-        <DigiButton
+        <PrimaryButton
           afSize={ButtonSize.SMALL}
           afVariation={ButtonVariation.PRIMARY}
           afFullWidth={false}
           onAfOnClick={() => handleClick(occupation.id)}
         >
           Läs mer
-        </DigiButton>
+        </PrimaryButton>
       </DigiTypography>
     </DigiLayoutContainer>
   );
