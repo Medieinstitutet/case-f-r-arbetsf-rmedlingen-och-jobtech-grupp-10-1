@@ -16,6 +16,7 @@ import {
 import { useContext, useState } from 'react';
 import { DigiNavigationPaginationCustomEvent } from '@digi/arbetsformedlingen/dist/types/components';
 import { postSearchQuery } from '../services/relatedOccupationsSearchService';
+import RelatedOccupationInput from './RelatedOccupationInput';
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -45,6 +46,7 @@ export const Home = () => {
 
   return (
     <div>
+      <RelatedOccupationInput />
       {state.occupations?.hits_returned ? (
         <DigiNavigationPagination
           afTotalPages={Math.floor(state.occupations.hits_total / 10)}
