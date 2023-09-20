@@ -65,6 +65,7 @@ export const EnrichedOccupation = () => {
     y: 'Procent',
     title: 'Dom 10 mest eftertraktade Kompetenserna',
     subTitle: `Yrkesgrupp: ${occupationGroup.occupation_group_label}`,
+    infoText: `Talet står för hur många procent som en viss kompetens utgör inom annonser för ett visst yrke.`,
   };
 
   return (
