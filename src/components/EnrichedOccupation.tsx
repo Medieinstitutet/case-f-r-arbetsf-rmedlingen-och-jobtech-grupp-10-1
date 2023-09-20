@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getEnrichedOccupation } from '../services/enrichedOccupationsSearchService';
 import { IEnrichedOccupationsResponse } from '../models/IEnrichedOccupationsResponse';
 import { ICompetencies } from '../models/ICompetencies';
 import { IOccupationGroup } from '../models/IOccupationGroup';
 import {
   DigiBarChart,
+  DigiButton,
   DigiLayoutContainer,
   DigiLoaderSpinner,
   DigiTypography,
   DigiTypographyHeadingJumbo,
 } from '@digi/arbetsformedlingen-react';
 import {
+ButtonSize,
+  ButtonVariation,
   LoaderSpinnerSize,
   TypographyHeadingJumboLevel,
 } from '@digi/arbetsformedlingen';
@@ -20,6 +23,7 @@ import './EnrichedOccupation.scss';
 
 export const EnrichedOccupation = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [occupation, setOccupation] = useState(
     {} as IEnrichedOccupationsResponse
   );
@@ -82,7 +86,10 @@ export const EnrichedOccupation = () => {
             afText={occupation.occupation_label}
             afLevel={TypographyHeadingJumboLevel.H1}
           ></DigiTypographyHeadingJumbo>
-          <Link to={'/related-occupations'}>Tillbaka</Link>
+          <DigiButton onAfOnClick={() => navigate(-1)}
+          afSize={ButtonSize.SMALL}
+          afVariation={ButtonVariation.FUNCTION}
+          >&lt;--- Tillbaka </DigiButton>
           <div className="chartContainer">
             {competencies.length !== 0 ? (
               <DigiBarChart afChartData={chartData}></DigiBarChart>
