@@ -15,11 +15,13 @@ import {
 } from '@digi/arbetsformedlingen';
 import {
   DigiButton,
+  DigiDialog,
   DigiFormInput,
   DigiFormTextarea,
   DigiLayoutContainer,
 } from '@digi/arbetsformedlingen-react';
 import { DigiFormTextareaCustomEvent } from '@digi/arbetsformedlingen/dist/types/components';
+import { DialogSize, DialogHeadingLevel } from '@digi/arbetsformedlingen';
 import { useNavigate } from 'react-router-dom';
 
 const RelatedOccupationInput = () => {
@@ -27,6 +29,7 @@ const RelatedOccupationInput = () => {
   const [showDuplicateError, setShowDuplicateError] = useState(false);
   const [showLengthError, setShowLengthError] = useState(false);
   const [pressedOnce, setPressedOnce] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
   const { dispatch } = useContext<IRelatedOccupationsContext>(
     RelatedOccupationsContext
   );
@@ -40,14 +43,18 @@ const RelatedOccupationInput = () => {
     if (searchWords.length >= 3 || queryLength >= 3) {
       setShowLengthError(false);
       const response = await postSearchQuery(query);
-      dispatch({ type: 'SET_RELATED_OCCUPATIONS', payload: response });
-      dispatch({
-        type: 'SET_LATEST_SEARCH',
-        payload: { title: '', keywords: searchString, freeText: searchText },
-      });
-      setSearchWords([]);
-      setSearchText('');
-      navigate('/related-occupations');
+      if (response.hits_total !== 0) {
+        dispatch({ type: 'SET_RELATED_OCCUPATIONS', payload: response });
+        dispatch({
+          type: 'SET_LATEST_SEARCH',
+          payload: { title: '', keywords: searchString, freeText: searchText },
+        });
+        setSearchWords([]);
+        setSearchText('');
+        navigate('/related-occupations');
+      } else {
+        setShowDialog(true);
+      }
     } else {
       setShowLengthError(true);
     }
@@ -139,6 +146,18 @@ const RelatedOccupationInput = () => {
         >
           Rensa
         </DigiButton>
+        <DigiDialog
+          afSize={DialogSize.MEDIUM}
+          afShowDialog={showDialog}
+          afHeadingLevel={DialogHeadingLevel.H3}
+          afHeading="Sökningen gav inga resultat, prova att söka med andra ord."
+          afCloseButtonText=""
+          afPrimaryButtonText="OK"
+          onAfOnClose={() => setShowDialog(false)}
+          onAfPrimaryButtonClick={() => {
+            setShowDialog(false);
+          }}
+        />
       </div>
     </DigiLayoutContainer>
   );
