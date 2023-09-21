@@ -21,6 +21,7 @@ import {
 } from '@digi/arbetsformedlingen';
 import { IChartData } from '../models/IChartData';
 import './EnrichedOccupation.scss';
+import { getSCBStatistics } from '../services/SCBStatisticsService';
 
 export const EnrichedOccupation = () => {
   const { id } = useParams();
@@ -33,6 +34,7 @@ export const EnrichedOccupation = () => {
     {} as IOccupationGroup
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [averageSalaries, setAverageSalaries] = useState([] as string[]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,11 +46,22 @@ export const EnrichedOccupation = () => {
           result.metadata.enriched_candidates_term_frequency.competencies
         );
         setOccupationGroup(result.occupation_group);
+        getAverageSalary(result.occupation_group.ssyk);
         setIsLoading(false);
       }
     };
     fetchData();
   }, [id]);
+
+  const getAverageSalary = async (ssyk: string) => {
+    const response = await getSCBStatistics(ssyk);
+    const salariesByYear = await response.data.map((value: string) => value);
+    setAverageSalaries(salariesByYear);
+  };
+
+  useEffect(() => {
+    console.log('averageSalaries', averageSalaries);
+  }, [averageSalaries]);
 
   const chartData: IChartData = {
     data: {
