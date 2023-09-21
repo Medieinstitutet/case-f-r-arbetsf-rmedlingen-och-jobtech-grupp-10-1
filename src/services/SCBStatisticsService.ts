@@ -35,7 +35,6 @@ export const getSCBStatistics = async (ssyk: string) => {
   };
 
   const response = await axios.post(`${PROXY_URL}${BASE_URL}`, requestBody);
-  console.log('response.data: ', response.data);
 
   return response.data;
 };
