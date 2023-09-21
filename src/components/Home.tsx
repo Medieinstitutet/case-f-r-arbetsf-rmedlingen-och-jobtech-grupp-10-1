@@ -5,8 +5,10 @@ import {
 } from '@digi/arbetsformedlingen-react';
 import RelatedOccupationInput from './RelatedOccupationInput';
 import { TypographyVariation } from '@digi/arbetsformedlingen';
+import { getData } from '../services/SCBStatisticsService';
 
 export const Home = () => {
+  getData();
   return (
     <DigiLayoutBlock>
       <DigiLayoutContainer afVerticalPadding>
