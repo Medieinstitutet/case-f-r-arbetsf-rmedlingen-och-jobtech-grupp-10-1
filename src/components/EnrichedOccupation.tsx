@@ -99,7 +99,7 @@ export const EnrichedOccupation = () => {
       xValues: [1, 2, 3, 4, 5],
       series: [
         {
-          yValues: [20000, 21000, 22000, 23000, 24000],
+          yValues: averageSalaries,
           title: 'Lön',
           colorToken: 'blue',
         },
