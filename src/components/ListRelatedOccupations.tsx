@@ -28,7 +28,7 @@ const ListRelatedOccupations = () => {
     RelatedOccupationsContext
   );
   const [currentResultStart, setCurrentResultStart] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   async function handlePageChange(
     event: DigiNavigationPaginationCustomEvent<number>
@@ -51,16 +51,18 @@ const ListRelatedOccupations = () => {
       },
       { replace: true }
     );
-    setIsLoadingFalseFunction();
+    setIsLoadingToFalse();
   }
 
-  function setIsLoadingFalseFunction() {
+  function setIsLoadingToFalse() {
     setIsLoading(false);
   }
 
   useEffect(() => {
     if (!state.occupations) {
       navigate('/');
+    } else {
+      setIsLoading(false);
     }
   });
 
