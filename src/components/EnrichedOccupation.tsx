@@ -101,15 +101,13 @@ export const EnrichedOccupation = () => {
         {
           yValues: averageSalaries,
           title: 'Lön',
-          colorToken: 'blue',
         },
       ],
-      xValueNames: ['2017', '2018', '2019', '2020', '2021'],
+      xValueNames: ['2018', '2019', '2020', '2021', '2022'],
     },
     x: 'År',
     y: 'Lön',
     title: 'Löneutveckling',
-    subTitle: `Yrkesgrupp: ${occupationGroup.occupation_group_label}`,
   };
 
   return (
