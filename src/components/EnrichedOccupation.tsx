@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getEnrichedOccupation } from '../services/enrichedOccupationsSearchService';
 import { IEnrichedOccupationsResponse } from '../models/IEnrichedOccupationsResponse';
 import { ICompetencies } from '../models/ICompetencies';
@@ -11,9 +11,10 @@ import {
   DigiLoaderSpinner,
   DigiTypography,
   DigiTypographyHeadingJumbo,
+  DigiIconArrowLeft,
 } from '@digi/arbetsformedlingen-react';
 import {
-ButtonSize,
+  ButtonSize,
   ButtonVariation,
   LoaderSpinnerSize,
   TypographyHeadingJumboLevel,
@@ -63,7 +64,10 @@ export const EnrichedOccupation = () => {
       ],
       xValueNames: competencies
         .slice(0, 10)
-        .map((competency) => competency.term),
+        .map(
+          (competency) =>
+            competency.term.charAt(0).toUpperCase() + competency.term.slice(1)
+        ),
     },
     x: 'Kompetens',
     y: 'Procent',
@@ -81,15 +85,19 @@ export const EnrichedOccupation = () => {
         ></DigiLoaderSpinner>
       )}
       <DigiLayoutContainer afVerticalPadding>
+        <Link to={'/related-occupations'}></Link>
         <DigiTypography af-variation="large">
           <DigiTypographyHeadingJumbo
             afText={occupation.occupation_label}
             afLevel={TypographyHeadingJumboLevel.H1}
           ></DigiTypographyHeadingJumbo>
-          <DigiButton onAfOnClick={() => navigate(-1)}
-          afSize={ButtonSize.SMALL}
-          afVariation={ButtonVariation.FUNCTION}
-          >&lt;--- Tillbaka </DigiButton>
+          <DigiButton
+            onAfOnClick={() => navigate(-1)}
+            afSize={ButtonSize.SMALL}
+            afVariation={ButtonVariation.FUNCTION}
+          >
+            <DigiIconArrowLeft afTitle="Tillbaka" style={{ width: '35px' }} />
+          </DigiButton>
           <div className="chartContainer">
             {competencies.length !== 0 ? (
               <DigiBarChart afChartData={chartData}></DigiBarChart>
