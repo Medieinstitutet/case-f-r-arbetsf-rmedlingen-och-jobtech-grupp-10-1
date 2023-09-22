@@ -2,9 +2,9 @@
 
 ## DS
 
-Yesterday we together fixed the reducer again to somewhat of the old way again. Added more of a global state.
-We added pagination to the serarch result that used this new context latestSearch to make it work.
-Start the day with experimenting in using styled-components together with the design-system and later I'll focus on adding a Spinner to the search
+Yesterday i experimented with the styled components and got it working in the end to override the css from the designsystem.
+Today I will continue with the spinner modal and implementing it into the application. Also Tenta time!!!
+TIL styled components combined with this design system is not very fun.
 
 ## NP
 
