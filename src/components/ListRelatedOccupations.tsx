@@ -16,6 +16,7 @@ import {
 import { useContext, useEffect, useState } from 'react';
 import { DigiNavigationPaginationCustomEvent } from '@digi/arbetsformedlingen/dist/types/components';
 import { postSearchQuery } from '../services/relatedOccupationsSearchService';
+import { Spinner } from './Spinner';
 
 const ListRelatedOccupations = () => {
   const calculateResultStart = (updated: number) => {
@@ -37,11 +38,15 @@ const ListRelatedOccupations = () => {
   const { state, dispatch } = useContext<IRelatedOccupationsContext>(
     RelatedOccupationsContext
   );
+
+  const [currentResultStart, setCurrentResultStart] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
   const [currentResultCount, setCurrentResultCount] = useState<{start: number, end: number} | undefined>();
 
   async function handlePageChange(
     event: DigiNavigationPaginationCustomEvent<number>
   ) {
+    setIsLoading(true);
     console.log(event.detail);
     const offset = `&offset=${(event.detail - 1) * 10}`;
     const titleQuery =
@@ -67,6 +72,8 @@ const ListRelatedOccupations = () => {
   useEffect(() => {
     if (!state.occupations) {
       navigate('/');
+    } else {
+      setIsLoading(false);
     }
     if (!currentResultCount) {
       setCurrentResultCount({
@@ -78,6 +85,7 @@ const ListRelatedOccupations = () => {
 
   return (
     <div>
+      {isLoading && <Spinner></Spinner>}
       {state.occupations?.hits_returned ? (
         <DigiNavigationPagination
           afTotalPages={Math.ceil(state.occupations.hits_total / 10)}
