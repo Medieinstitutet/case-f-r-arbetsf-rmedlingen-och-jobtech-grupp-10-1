@@ -1,6 +1,7 @@
 import { IScbResponse } from '../models/IScbResponse';
 import { IScbRequest } from '../models/IScbRequest';
 import { post } from './serviceBase';
+import axios from 'axios';
 
 const BASE_URL =
   'https://api.scb.se/OV0104/v1/doris/sv/ssd/START/AM/AM0110/AM0110A/LonYrkeRegion4A';
@@ -36,10 +37,7 @@ export const getSCBStatistics = async (ssyk: string) => {
     },
   };
 
-  const response = await post<IScbResponse, IScbRequest>(
-    `${PROXY_URL}${BASE_URL}`,
-    requestBody
-  );
+  const response = await axios.post(`${PROXY_URL}${BASE_URL}`, requestBody);
 
   return response.data;
 };

@@ -41,7 +41,9 @@ const ListRelatedOccupations = () => {
 
   const [currentResultStart, setCurrentResultStart] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [currentResultCount, setCurrentResultCount] = useState<{start: number, end: number} | undefined>();
+  const [currentResultCount, setCurrentResultCount] = useState<
+    { start: number; end: number } | undefined
+  >();
 
   async function handlePageChange(
     event: DigiNavigationPaginationCustomEvent<number>
@@ -77,9 +79,10 @@ const ListRelatedOccupations = () => {
     }
     if (!currentResultCount) {
       setCurrentResultCount({
-        start: calculateResultStart(Number(searchParams.get('activePage'))) || 1,
+        start:
+          calculateResultStart(Number(searchParams.get('activePage'))) || 1,
         end: calculateResultEnd(Number(searchParams.get('activePage'))) || 10,
-      })
+      });
     }
   });
 

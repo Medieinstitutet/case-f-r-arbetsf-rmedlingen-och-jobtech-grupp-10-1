@@ -40,7 +40,7 @@ export const EnrichedOccupation = () => {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      if (id) {        
+      if (id) {
         const result = await getEnrichedOccupation(id);
         setOccupation(result);
         setCompetencies(
@@ -56,7 +56,7 @@ export const EnrichedOccupation = () => {
 
   const getAverageSalary = async (ssyk: string) => {
     const response = await getSCBStatistics(ssyk);
-    const averageSalaries = response.map((salary: any) =>
+    const averageSalaries = response.data.map((salary: any) =>
       Number(salary.values[0])
     );
     setAverageSalaries(averageSalaries);
