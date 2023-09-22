@@ -62,12 +62,6 @@ export const EnrichedOccupation = () => {
     setAverageSalaries(averageSalaries);
   };
 
-  // console.log('averageSalaries', averageSalaries);
-
-  useEffect(() => {
-    console.log('averageSalaries', averageSalaries);
-  }, [averageSalaries]);
-
   const competencyData: IChartData = {
     data: {
       xValues: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
