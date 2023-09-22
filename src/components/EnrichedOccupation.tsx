@@ -12,6 +12,7 @@ import {
   DigiTypography,
   DigiTypographyHeadingJumbo,
   DigiIconArrowLeft,
+  DigiChartLine,
 } from '@digi/arbetsformedlingen-react';
 import {
   ButtonSize,
@@ -21,6 +22,7 @@ import {
 } from '@digi/arbetsformedlingen';
 import { IChartData } from '../models/IChartData';
 import './EnrichedOccupation.scss';
+import { getSCBStatistics } from '../services/SCBStatisticsService';
 
 export const EnrichedOccupation = () => {
   const { id } = useParams();
@@ -33,6 +35,7 @@ export const EnrichedOccupation = () => {
     {} as IOccupationGroup
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [averageSalaries, setAverageSalaries] = useState([] as number[]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,13 +47,22 @@ export const EnrichedOccupation = () => {
           result.metadata.enriched_candidates_term_frequency.competencies
         );
         setOccupationGroup(result.occupation_group);
+        getAverageSalary(result.occupation_group.ssyk);
         setIsLoading(false);
       }
     };
     fetchData();
   }, [id]);
 
-  const chartData: IChartData = {
+  const getAverageSalary = async (ssyk: string) => {
+    const response = await getSCBStatistics(ssyk);
+    const averageSalaries = response.map((salary: any) =>
+      Number(salary.values[0])
+    );
+    setAverageSalaries(averageSalaries);
+  };
+
+  const competencyData: IChartData = {
     data: {
       xValues: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       series: [
@@ -74,6 +86,22 @@ export const EnrichedOccupation = () => {
     title: 'Dom 10 mest eftertraktade Kompetenserna',
     subTitle: `Yrkesgrupp: ${occupationGroup.occupation_group_label}`,
     infoText: `Talet står för hur många procent som en viss kompetens utgör inom annonser för ett visst yrke.`,
+  };
+
+  const salaryData: IChartData = {
+    data: {
+      xValues: [1, 2, 3, 4, 5],
+      series: [
+        {
+          yValues: averageSalaries,
+          title: 'Lön',
+        },
+      ],
+      xValueNames: ['2018', '2019', '2020', '2021', '2022'],
+    },
+    x: 'År',
+    y: 'Lön',
+    title: 'Löneutveckling',
   };
 
   return (
@@ -100,7 +128,20 @@ export const EnrichedOccupation = () => {
           </DigiButton>
           <div className="chartContainer">
             {competencies.length !== 0 ? (
-              <DigiBarChart afChartData={chartData}></DigiBarChart>
+              <DigiBarChart
+                afChartData={competencyData}
+                af-heading-level="h2"
+              ></DigiBarChart>
+            ) : (
+              <></>
+            )}
+          </div>
+          <div className="chartContainer">
+            {averageSalaries.length !== 0 ? (
+              <DigiChartLine
+                afChartData={salaryData}
+                af-heading-level="h2"
+              ></DigiChartLine>
             ) : (
               <></>
             )}
