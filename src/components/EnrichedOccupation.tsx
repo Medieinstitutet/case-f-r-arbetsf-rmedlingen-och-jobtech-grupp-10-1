@@ -56,7 +56,7 @@ export const EnrichedOccupation = () => {
 
   const getAverageSalary = async (ssyk: string) => {
     const response = await getSCBStatistics(ssyk);
-    const averageSalaries = response.data.map((salary: any) =>
+    const averageSalaries = response.map((salary: any) =>
       Number(salary.values[0])
     );
     setAverageSalaries(averageSalaries);
