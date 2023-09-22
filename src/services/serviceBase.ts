@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 export async function get<T>(url: string) {
   const response = await axios.get<T>(url);
@@ -7,14 +7,12 @@ export async function get<T>(url: string) {
 }
 
 export async function post<T, K = undefined>(url: string, data?: K) {
-  let response;
+  let response: AxiosResponse<T>;
   if (data) {
-    response = await axios.post<T, K>(url, data);
+    response = await axios.post<T>(url, data);
   } else {
     response = await axios.post<T>(url);
   }
-  response = await axios.post<T>(url);
-  console.log(response.data);
-
+  
   return response.data;
 }

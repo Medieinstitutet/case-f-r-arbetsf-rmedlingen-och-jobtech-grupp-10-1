@@ -21,7 +21,7 @@ import { DialogSize, DialogHeadingLevel } from '@digi/arbetsformedlingen';
 import { useNavigate } from 'react-router-dom';
 
 const RelatedOccupationInput = () => {
-  const [showLengthError, setShowLengthError] = useState(false);
+  const [_showLengthError, setShowLengthError] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const { dispatch } = useContext<IRelatedOccupationsContext>(
     RelatedOccupationsContext
