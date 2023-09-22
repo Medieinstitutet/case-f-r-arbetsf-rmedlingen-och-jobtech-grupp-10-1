@@ -11,11 +11,13 @@ import {
 } from '@digi/arbetsformedlingen';
 import {
   DigiButton,
+  DigiDialog,
   DigiFormInput,
   DigiFormTextarea,
   DigiLayoutContainer,
 } from '@digi/arbetsformedlingen-react';
 import { DigiFormTextareaCustomEvent } from '@digi/arbetsformedlingen/dist/types/components';
+import { DialogSize, DialogHeadingLevel } from '@digi/arbetsformedlingen';
 import { useNavigate } from 'react-router-dom';
 
 const RelatedOccupationInput = () => {
@@ -73,6 +75,18 @@ const RelatedOccupationInput = () => {
         >
           Rensa
         </DigiButton>
+        <DigiDialog
+          afSize={DialogSize.MEDIUM}
+          afShowDialog={showDialog}
+          afHeadingLevel={DialogHeadingLevel.H3}
+          afHeading="Sökningen gav inga resultat, prova att söka med andra ord."
+          afCloseButtonText=""
+          afPrimaryButtonText="OK"
+          onAfOnClose={() => setShowDialog(false)}
+          onAfPrimaryButtonClick={() => {
+            setShowDialog(false);
+          }}
+        />
       </div>
     </DigiLayoutContainer>
   );
