@@ -1,4 +1,4 @@
-import { IScbResponse } from '../models/ISCBResponse';
+import { IScbResponse } from '../models/IScbResponse';
 import { IScbRequest } from '../models/IScbRequest';
 import { post } from './serviceBase';
 

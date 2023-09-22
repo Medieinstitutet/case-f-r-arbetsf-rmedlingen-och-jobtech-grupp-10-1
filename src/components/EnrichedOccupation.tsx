@@ -40,7 +40,7 @@ export const EnrichedOccupation = () => {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      if (id) {
+      if (id) {        
         const result = await getEnrichedOccupation(id);
         setOccupation(result);
         setCompetencies(
