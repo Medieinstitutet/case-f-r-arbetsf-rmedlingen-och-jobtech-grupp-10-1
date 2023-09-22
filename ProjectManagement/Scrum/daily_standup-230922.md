@@ -8,8 +8,8 @@ Start the day with experimenting in using styled-components together with the de
 
 ## NP
 
-Igår så fixade vi tillsammans att bygga om context, och la till reducer.
-Jag började också experimentera med att bygga stapeldiagram, och ska fortsätta att förfina och förbättra det.
+Igår så fick jag till grundfunktionaliteten av linjediagrammet som visar lönestatistik. Det var väldigt krångligt, men efter lite hjälp så fick jag äntligen till det, och jag är väldigt nöjd med resultatet.
+Idag så ska jag fixa så att services är gjorda enligt god praxis eftersom jag började med att göra api anropen lite hastigt utan att använda serviceBase.
 
 ## AW
 
