@@ -78,35 +78,36 @@ export const EnrichedOccupation = () => {
 
   return (
     <div>
-      {isLoading && (
+      {isLoading ? (
         <DigiLoaderSpinner
           afSize={LoaderSpinnerSize.LARGE}
           className="spinner"
         ></DigiLoaderSpinner>
+      ) : (
+        <DigiLayoutContainer afVerticalPadding>
+          <Link to={'/related-occupations'}></Link>
+          <DigiTypography af-variation="large">
+            <DigiTypographyHeadingJumbo
+              afText={occupation.occupation_label}
+              afLevel={TypographyHeadingJumboLevel.H1}
+            ></DigiTypographyHeadingJumbo>
+            <DigiButton
+              onAfOnClick={() => navigate(-1)}
+              afSize={ButtonSize.SMALL}
+              afVariation={ButtonVariation.FUNCTION}
+            >
+              <DigiIconArrowLeft afTitle="Tillbaka" style={{ width: '35px' }} />
+            </DigiButton>
+            <div className="chartContainer">
+              {competencies.length !== 0 ? (
+                <DigiBarChart afChartData={chartData}></DigiBarChart>
+              ) : (
+                <></>
+              )}
+            </div>
+          </DigiTypography>
+        </DigiLayoutContainer>
       )}
-      <DigiLayoutContainer afVerticalPadding>
-        <Link to={'/related-occupations'}></Link>
-        <DigiTypography af-variation="large">
-          <DigiTypographyHeadingJumbo
-            afText={occupation.occupation_label}
-            afLevel={TypographyHeadingJumboLevel.H1}
-          ></DigiTypographyHeadingJumbo>
-          <DigiButton
-            onAfOnClick={() => navigate(-1)}
-            afSize={ButtonSize.SMALL}
-            afVariation={ButtonVariation.FUNCTION}
-          >
-            <DigiIconArrowLeft afTitle="Tillbaka" style={{ width: '35px' }} />
-          </DigiButton>
-          <div className="chartContainer">
-            {competencies.length !== 0 ? (
-              <DigiBarChart afChartData={chartData}></DigiBarChart>
-            ) : (
-              <></>
-            )}
-          </div>
-        </DigiTypography>
-      </DigiLayoutContainer>
     </div>
   );
 };
