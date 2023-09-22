@@ -37,10 +37,7 @@ const ListRelatedOccupations = () => {
   const { state, dispatch } = useContext<IRelatedOccupationsContext>(
     RelatedOccupationsContext
   );
-  const [currentResultCount, setCurrentResultCount] = useState({
-    start: calculateResultStart(Number(searchParams.get('activePage'))) || 1,
-    end: calculateResultEnd(Number(searchParams.get('activePage'))) || 10,
-  });
+  const [currentResultCount, setCurrentResultCount] = useState<{start: number, end: number} | undefined>();
 
   async function handlePageChange(
     event: DigiNavigationPaginationCustomEvent<number>
@@ -71,6 +68,12 @@ const ListRelatedOccupations = () => {
     if (!state.occupations) {
       navigate('/');
     }
+    if (!currentResultCount) {
+      setCurrentResultCount({
+        start: calculateResultStart(Number(searchParams.get('activePage'))) || 1,
+        end: calculateResultEnd(Number(searchParams.get('activePage'))) || 10,
+      })
+    }
   });
 
   return (
@@ -79,8 +82,8 @@ const ListRelatedOccupations = () => {
         <DigiNavigationPagination
           afTotalPages={Math.ceil(state.occupations.hits_total / 10)}
           afInitActive-page={searchParams.get('activePage') || '1'}
-          afCurrentResultStart={currentResultCount.start}
-          afCurrentResultEnd={currentResultCount.end}
+          afCurrentResultStart={currentResultCount?.start}
+          afCurrentResultEnd={currentResultCount?.end}
           afTotalResults={state.occupations.hits_total}
           afResultName="Yrken"
           onAfOnPageChange={(event) => {
