@@ -8,8 +8,9 @@ TIL styled components combined with this design system is not very fun.
 
 ## NP
 
-Igår så fixade vi tillsammans att bygga om context, och la till reducer.
-Jag började också experimentera med att bygga stapeldiagram, och ska fortsätta att förfina och förbättra det.
+Igår så jobbade jag med att få in stapeldiagrammen för att visa eftertraktade kompetenser för ett yrke.
+Idag så ska jag försöka få in lönestatistiken från SCBs API i ett linjediagram
+SCBs api verkar väldigt stort och ganska svårt så det kommer kräva lite forskning för att få igång det som jag vill.
 
 ## AW
 
