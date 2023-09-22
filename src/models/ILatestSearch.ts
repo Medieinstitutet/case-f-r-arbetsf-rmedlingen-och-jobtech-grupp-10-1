@@ -1,5 +1,4 @@
 export interface ILatestSearch {
-    title: string,
-    keywords: string,
-    freeText: string
+  title: string;
+  freeText: string;
 }

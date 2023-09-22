@@ -1,10 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// https://www.npmjs.com/package/react-tagsinput
-
 import { useContext, useState } from 'react';
 import { postSearchQuery } from '../services/relatedOccupationsSearchService';
 import './RelatedOccupationInput.scss';
-import { TagsInput } from 'react-tag-input-component';
 import {
   IRelatedOccupationsContext,
   RelatedOccupationsContext,
@@ -23,10 +19,7 @@ import { DigiFormTextareaCustomEvent } from '@digi/arbetsformedlingen/dist/types
 import { useNavigate } from 'react-router-dom';
 
 const RelatedOccupationInput = () => {
-  const [searchWords, setSearchWords] = useState<string[]>([]);
-  const [showDuplicateError, setShowDuplicateError] = useState(false);
   const [showLengthError, setShowLengthError] = useState(false);
-  const [pressedOnce, setPressedOnce] = useState(false);
   const { dispatch } = useContext<IRelatedOccupationsContext>(
     RelatedOccupationsContext
   );
@@ -34,56 +27,20 @@ const RelatedOccupationInput = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    const searchString = searchWords.join(' ');
-    const query = searchString + ' ' + searchText;
-    const queryLength = query.split(' ').length;
-    if (searchWords.length >= 3 || queryLength >= 3) {
+    const queryLength = searchText.split(' ').length;
+    if (queryLength >= 3) {
       setShowLengthError(false);
-      const response = await postSearchQuery(query);
+      const response = await postSearchQuery(searchText);
       dispatch({ type: 'SET_RELATED_OCCUPATIONS', payload: response });
       dispatch({
         type: 'SET_LATEST_SEARCH',
-        payload: { title: '', keywords: searchString, freeText: searchText },
+        payload: { title: '', freeText: searchText },
       });
-      setSearchWords([]);
       setSearchText('');
       navigate('/related-occupations');
     } else {
       setShowLengthError(true);
     }
-  };
-
-  const handleInputChange = (tags: string[]) => {
-    if (tags[tags.length - 1] === ' ') {
-      return;
-    }
-    setSearchWords([...tags]);
-  };
-
-  const resetErrors = () => {
-    if (pressedOnce) {
-      setShowDuplicateError(false);
-      setShowLengthError(false);
-      setPressedOnce(false);
-    } else if (showDuplicateError || showLengthError) {
-      setPressedOnce(true);
-    }
-  };
-
-  const handleOnExisting = () => {
-    setShowDuplicateError(true);
-  };
-
-  const handleOnBlur = (e: any) => {
-    const value = e.target.value;
-    const isDuplicate = searchWords.includes(value);
-    if (isDuplicate) {
-      setShowDuplicateError(true);
-      return;
-    }
-    if (value === '') return;
-    handleInputChange([...searchWords, value]);
-    e.target.value = '';
   };
 
   const handleSearchTextChange = (event: DigiFormTextareaCustomEvent<any>) => {
@@ -93,28 +50,6 @@ const RelatedOccupationInput = () => {
   return (
     <DigiLayoutContainer afVerticalPadding>
       <div>
-        <TagsInput
-          value={searchWords}
-          onChange={(tags) => handleInputChange(tags)}
-          onRemoved={(tag) =>
-            setSearchWords(searchWords.filter((t) => t !== tag))
-          }
-          separators={['Enter', 'Tab', ' ', ',']}
-          onExisting={handleOnExisting}
-          onKeyUp={resetErrors}
-          onBlur={handleOnBlur}
-          placeHolder="Sökord"
-        />
-        {showDuplicateError && ( // TODO: Lägg till AFs felmeddelande
-          <p style={{ border: 'red solid 2px' }}>
-            Du kan inte lägga till samma ord flera gånger
-          </p>
-        )}
-        {showLengthError && ( // TODO: Lägg till AFs felmeddelande
-          <p style={{ border: 'red solid 2px' }}>
-            Du måste lägga till minst 3 ord
-          </p>
-        )}
         <DigiFormTextarea
           value={searchText}
           onAfOnChange={handleSearchTextChange}
@@ -133,7 +68,6 @@ const RelatedOccupationInput = () => {
         <DigiButton
           af-variation="secondary"
           onAfOnClick={() => {
-            setSearchWords([]);
             setSearchText('');
           }}
         >
