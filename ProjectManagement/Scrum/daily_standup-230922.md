@@ -11,4 +11,4 @@ Idag så ska jag fixa så att services är gjorda enligt god praxis eftersom jag
 
 ## AW
 
-Igår jobbade vi tillsammans med att lägga till reducer och implementera paginering. Idag ska jag jobba med att fixa routing och styling.
+Igår lade jag till en modal som visar ett meddelande om sökningen man gjorde inte gav några träffar samt fixade några buggar relaterade till paginering. Idag ska jag 

@@ -14,4 +14,4 @@ SCBs api verkar väldigt stort och ganska svårt så det kommer kräva lite fors
 
 ## AW
 
-Igår jobbade vi tillsammans med att lägga till reducer och implementera paginering. Idag ska jag jobba med att fixa routing och styling.
+Igår jobbade jag med att separera sökfunktion och resultat samt implementerade testning för applikationen. Idag ska jag fixa en bugg som berör paginering och lägg till en modal som visar ett meddelande om det är noll träffar i sökresultatet.  
