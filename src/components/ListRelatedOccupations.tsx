@@ -51,11 +51,6 @@ const ListRelatedOccupations = () => {
       },
       { replace: true }
     );
-    setIsLoadingToFalse();
-  }
-
-  function setIsLoadingToFalse() {
-    setIsLoading(false);
   }
 
   useEffect(() => {
