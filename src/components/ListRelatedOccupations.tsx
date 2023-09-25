@@ -94,11 +94,6 @@ const ListRelatedOccupations = () => {
             handlePageChange(event);
           }}
         >
-          {/* <DigiLayoutColumns
-            afElement={LayoutColumnsElement.DIV}
-            afVariation={LayoutColumnsVariation.TWO}
-            style={{ width: '80%' }}
-          > */}
           <StyledListRelatedOccupations>
             {state.occupations.related_occupations?.map((occupation) => (
               <RelatedOccupation
@@ -108,7 +103,6 @@ const ListRelatedOccupations = () => {
               />
             ))}
           </StyledListRelatedOccupations>
-          {/* </DigiLayoutColumns> */}
         </DigiNavigationPagination>
       ) : (
         <></>

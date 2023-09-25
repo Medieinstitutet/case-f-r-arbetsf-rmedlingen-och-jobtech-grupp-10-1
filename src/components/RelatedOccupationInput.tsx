@@ -22,6 +22,7 @@ import {
 } from '@digi/arbetsformedlingen/dist/types/components';
 import { DialogSize, DialogHeadingLevel } from '@digi/arbetsformedlingen';
 import { useNavigate } from 'react-router-dom';
+import { Spinner } from './Spinner';
 
 const RelatedOccupationInput = () => {
   const [_showLengthError, setShowLengthError] = useState(false);
@@ -33,8 +34,10 @@ const RelatedOccupationInput = () => {
   const [searchText, setSearchText] = useState<string>('');
   const [searchTitle, setSearchTitle] = useState<string>('');
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleSubmit = async () => {
+    setIsLoading(true);
     const queryLength = searchText.split(' ').length;
     if (queryLength >= 3) {
       const query =
@@ -74,51 +77,54 @@ const RelatedOccupationInput = () => {
   };
 
   return (
-    <DigiLayoutContainer afVerticalPadding>
-      <div>
-        <DigiFormTextarea
-          value={searchText}
-          onAfOnChange={handleSearchTextChange}
-          afLabel="Fritext sök"
-          afVariation={FormTextareaVariation.MEDIUM}
-          afValidation={FormTextareaValidation.NEUTRAL}
-        />
-        <DigiFormInput
-          afLabel="Titel"
-          value={searchTitle}
-          onAfOnChange={handleSearchTitleChange}
-        />
-        <DigiButton
-          onAfOnClick={handleSubmit}
-          af-variation="primary"
-          style={{ marginRight: '0.5rem' }}
-        >
-          Sök
-        </DigiButton>
-        <DigiButton
-          af-variation="secondary"
-          onAfOnClick={() => {
-            setSearchText('');
-          }}
-        >
-          Rensa
-        </DigiButton>
-        <DigiDialog
-          afSize={DialogSize.MEDIUM}
-          afShowDialog={showDialog}
-          afHeadingLevel={DialogHeadingLevel.H3}
-          afHeading={`Sökningen gav inga resultat, prova att lägga till fler ord i din sökning. De relevanta orden hittills är: ${identifiedKeywords.join(
-            ', '
-          )}`}
-          afCloseButtonText=""
-          afPrimaryButtonText="OK"
-          onAfOnClose={() => setShowDialog(false)}
-          onAfPrimaryButtonClick={() => {
-            setShowDialog(false);
-          }}
-        />
-      </div>
-    </DigiLayoutContainer>
+    <>
+      <DigiLayoutContainer afVerticalPadding>
+        <div>
+          {isLoading && <Spinner />}
+          <DigiFormTextarea
+            value={searchText}
+            onAfOnChange={handleSearchTextChange}
+            afLabel="Fritext sök"
+            afVariation={FormTextareaVariation.MEDIUM}
+            afValidation={FormTextareaValidation.NEUTRAL}
+          />
+          <DigiFormInput
+            afLabel="Titel"
+            value={searchTitle}
+            onAfOnChange={handleSearchTitleChange}
+          />
+          <DigiButton
+            onAfOnClick={handleSubmit}
+            af-variation="primary"
+            style={{ marginRight: '0.5rem' }}
+          >
+            Sök
+          </DigiButton>
+          <DigiButton
+            af-variation="secondary"
+            onAfOnClick={() => {
+              setSearchText('');
+            }}
+          >
+            Rensa
+          </DigiButton>
+          <DigiDialog
+            afSize={DialogSize.MEDIUM}
+            afShowDialog={showDialog}
+            afHeadingLevel={DialogHeadingLevel.H3}
+            afHeading={`Sökningen gav inga resultat, prova att lägga till fler ord i din sökning. De relevanta orden hittills är: ${identifiedKeywords.join(
+              ', '
+            )}`}
+            afCloseButtonText=""
+            afPrimaryButtonText="OK"
+            onAfOnClose={() => setShowDialog(false)}
+            onAfPrimaryButtonClick={() => {
+              setShowDialog(false);
+            }}
+          />
+        </div>
+      </DigiLayoutContainer>
+    </>
   );
 };
 
