@@ -14,7 +14,7 @@ export const Home = () => {
           <h2>Välkommen till YrkesOraklet.</h2>
           <p>
             Här kan du söka på ett yrke som intresserar dig och få mer
-            information, och vilka kompetenser som efterfrågas i yrket.
+            information om lön, och eftertraktade kompetenser i yrket.
           </p>
         </DigiTypography>
       </DigiLayoutContainer>
