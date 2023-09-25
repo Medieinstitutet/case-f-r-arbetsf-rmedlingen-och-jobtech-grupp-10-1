@@ -100,6 +100,7 @@ const RelatedOccupationInput = () => {
           onAfOnChange={handleSearchTextChange}
           onAfOnFocus={() => setShowLengthError(false)}
           afLabel="Fritext sök"
+          afLabelDescription='Skriv in minst tre kompetenser du vill söka på. Exempel: "sjuksköterska, undersköterska, vårdpersonal"'
           afVariation={FormTextareaVariation.MEDIUM}
           afValidation={
             showLengthError
