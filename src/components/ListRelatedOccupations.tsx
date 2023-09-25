@@ -1,13 +1,6 @@
-import {
-  DigiLayoutColumns,
-  DigiNavigationPagination,
-} from '@digi/arbetsformedlingen-react';
+import { DigiNavigationPagination } from '@digi/arbetsformedlingen-react';
 
 import { RelatedOccupation } from './RelatedOccupation';
-import {
-  LayoutColumnsElement,
-  LayoutColumnsVariation,
-} from '@digi/arbetsformedlingen';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   IRelatedOccupationsContext,
@@ -17,6 +10,7 @@ import { useContext, useEffect, useState } from 'react';
 import { DigiNavigationPaginationCustomEvent } from '@digi/arbetsformedlingen/dist/types/components';
 import { postSearchQuery } from '../services/relatedOccupationsSearchService';
 import { Spinner } from './Spinner';
+import { StyledListRelatedOccupations } from './styled/StyledListRelatedOccupations';
 
 const ListRelatedOccupations = () => {
   const calculateResultStart = (updated: number) => {
@@ -86,7 +80,7 @@ const ListRelatedOccupations = () => {
   });
 
   return (
-    <div>
+    <>
       {isLoading && <Spinner></Spinner>}
       {state.occupations?.hits_returned ? (
         <DigiNavigationPagination
@@ -100,26 +94,26 @@ const ListRelatedOccupations = () => {
             handlePageChange(event);
           }}
         >
-          <DigiLayoutColumns
+          {/* <DigiLayoutColumns
             afElement={LayoutColumnsElement.DIV}
             afVariation={LayoutColumnsVariation.TWO}
             style={{ width: '80%' }}
-          >
-            <div>
-              {state.occupations.related_occupations?.map((occupation) => (
-                <RelatedOccupation
-                  key={occupation.id}
-                  occupation={occupation}
-                  handleClick={handleClick}
-                />
-              ))}
-            </div>
-          </DigiLayoutColumns>
+          > */}
+          <StyledListRelatedOccupations>
+            {state.occupations.related_occupations?.map((occupation) => (
+              <RelatedOccupation
+                key={occupation.id}
+                occupation={occupation}
+                handleClick={handleClick}
+              />
+            ))}
+          </StyledListRelatedOccupations>
+          {/* </DigiLayoutColumns> */}
         </DigiNavigationPagination>
       ) : (
         <></>
       )}
-    </div>
+    </>
   );
 };
 

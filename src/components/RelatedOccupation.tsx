@@ -1,7 +1,4 @@
-import {
-  DigiLayoutContainer,
-  DigiTypography,
-} from '@digi/arbetsformedlingen-react';
+import { DigiTypography } from '@digi/arbetsformedlingen-react';
 import { IRelatedOccupations } from '../models/IRelatedOccupations';
 import {
   ButtonSize,
@@ -9,6 +6,7 @@ import {
   TypographyVariation,
 } from '@digi/arbetsformedlingen';
 import { StyledDigiButton } from './styled/Buttons';
+import { StyledRelatedOccupation } from './styled/StyledRelatedOccupation';
 
 interface IRelatedOccupationProps {
   occupation: IRelatedOccupations;
@@ -20,7 +18,7 @@ export const RelatedOccupation = ({
   handleClick,
 }: IRelatedOccupationProps) => {
   return (
-    <DigiLayoutContainer afVerticalPadding>
+    <StyledRelatedOccupation>
       <DigiTypography afVariation={TypographyVariation.SMALL}>
         <h2>{occupation.occupation_label}</h2>
         <p>Yrkesgrupp: {occupation.occupation_group.occupation_group_label}</p>
@@ -33,6 +31,6 @@ export const RelatedOccupation = ({
           Läs mer
         </StyledDigiButton>
       </DigiTypography>
-    </DigiLayoutContainer>
+    </StyledRelatedOccupation>
   );
 };
