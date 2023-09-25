@@ -14,14 +14,19 @@ import {
   DigiDialog,
   DigiFormInput,
   DigiFormTextarea,
+  DigiFormValidationMessage,
   DigiLayoutContainer,
 } from '@digi/arbetsformedlingen-react';
-import { DigiFormTextareaCustomEvent } from '@digi/arbetsformedlingen/dist/types/components';
-import { DialogSize, DialogHeadingLevel } from '@digi/arbetsformedlingen';
+import {
+  DialogSize,
+  DialogHeadingLevel,
+  FormValidationMessageVariation,
+} from '@digi/arbetsformedlingen';
 import { useNavigate } from 'react-router-dom';
+import { DigiFormTextareaCustomEvent } from '@digi/arbetsformedlingen/dist/types/components';
 
 const RelatedOccupationInput = () => {
-  const [_showLengthError, setShowLengthError] = useState(false);
+  const [showLengthError, setShowLengthError] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [identifiedKeywords, setIdentifiedKeywords] = useState<string[]>([]);
   const { dispatch } = useContext<IRelatedOccupationsContext>(
@@ -31,14 +36,17 @@ const RelatedOccupationInput = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    const queryLength = searchText.split(' ').length;
+    const searchWords = searchText.split(' ').filter((word) => word !== '');
+    const queryLength = searchWords.length;
+    console.log(searchWords);
+    
+
     if (queryLength >= 3) {
       setShowLengthError(false);
       const response = await postSearchQuery(searchText);
       console.log(response);
-      
-      if (response.hits_total !== 0) {
 
+      if (response.hits_total !== 0) {
         dispatch({ type: 'SET_RELATED_OCCUPATIONS', payload: response });
         dispatch({
           type: 'SET_LATEST_SEARCH',
@@ -48,7 +56,9 @@ const RelatedOccupationInput = () => {
         navigate('/related-occupations');
       } else {
         setShowDialog(true);
-        setIdentifiedKeywords([...response.identified_keywords_for_input.competencies]);
+        setIdentifiedKeywords([
+          ...response.identified_keywords_for_input.competencies,
+        ]);
       }
     } else {
       setShowLengthError(true);
@@ -62,12 +72,25 @@ const RelatedOccupationInput = () => {
   return (
     <DigiLayoutContainer afVerticalPadding>
       <div>
+        {showLengthError && (
+          <DigiFormValidationMessage
+            afVariation={FormValidationMessageVariation.ERROR}
+          >
+            Minst tre sökord måste anges
+          </DigiFormValidationMessage>
+        )}
         <DigiFormTextarea
           value={searchText}
           onAfOnChange={handleSearchTextChange}
+          onAfOnFocus={() => setShowLengthError(false)}
           afLabel="Fritext sök"
           afVariation={FormTextareaVariation.MEDIUM}
-          afValidation={FormTextareaValidation.NEUTRAL}
+          afValidation={
+            showLengthError
+              ? FormTextareaValidation.ERROR
+              : FormTextareaValidation.NEUTRAL
+          }
+          afRequired
         />
         <DigiFormInput afLabel="Titel" />
         <DigiButton
@@ -89,7 +112,9 @@ const RelatedOccupationInput = () => {
           afSize={DialogSize.MEDIUM}
           afShowDialog={showDialog}
           afHeadingLevel={DialogHeadingLevel.H3}
-          afHeading={`Sökningen gav inga resultat, prova att lägga till fler ord i din sökning. De relevanta orden hittills är: ${identifiedKeywords.join(', ')}`}
+          afHeading={`Sökningen gav inga resultat, prova att lägga till fler ord i din sökning. De relevanta orden hittills är: ${identifiedKeywords.join(
+            ', '
+          )}`}
           afCloseButtonText=""
           afPrimaryButtonText="OK"
           onAfOnClose={() => setShowDialog(false)}
