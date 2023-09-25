@@ -1,37 +1,26 @@
-import { DigiLayoutColumns } from '@digi/arbetsformedlingen-react';
-
-import { RelatedOccupation } from './RelatedOccupation';
 import {
-  LayoutColumnsElement,
-  LayoutColumnsVariation,
-} from '@digi/arbetsformedlingen';
-import { useNavigate } from 'react-router-dom';
-import { RelatedOccupationsContext } from '../contexts/RelatedOccupationsContext';
-import { useContext } from 'react';
+  DigiLayoutBlock,
+  DigiLayoutContainer,
+  DigiTypography,
+} from '@digi/arbetsformedlingen-react';
+import RelatedOccupationInput from './RelatedOccupationInput';
+import { TypographyVariation } from '@digi/arbetsformedlingen';
 
 export const Home = () => {
-  const navigate = useNavigate();
-  const handleClick = async (id: string) => {
-    navigate(`/${id}`);
-  };
-
-  const { occupationsResponse } = useContext(RelatedOccupationsContext);
-
   return (
-    <div>
-      <DigiLayoutColumns
-        afElement={LayoutColumnsElement.DIV}
-        afVariation={LayoutColumnsVariation.TWO}
-        style={{ width: '80%' }}
-      >
-        {occupationsResponse.related_occupations?.map((occupation) => (
-          <RelatedOccupation
-            key={occupation.id}
-            occupation={occupation}
-            handleClick={handleClick}
-          />
-        ))}
-      </DigiLayoutColumns>
-    </div>
+    <DigiLayoutBlock>
+      <DigiLayoutContainer afVerticalPadding>
+        <DigiTypography afVariation={TypographyVariation.LARGE}>
+          <h2>Välkommen till YrkesOraklet.</h2>
+          <p>
+            Här kan du söka på ett yrke som intresserar dig och få mer
+            information, och vilka kompetenser som efterfrågas i yrket.
+          </p>
+        </DigiTypography>
+      </DigiLayoutContainer>
+      <DigiTypography>
+        <RelatedOccupationInput />
+      </DigiTypography>
+    </DigiLayoutBlock>
   );
 };

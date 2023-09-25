@@ -1,24 +1,30 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getEnrichedOccupation } from '../services/enrichedOccupationsSearchService';
 import { IEnrichedOccupationsResponse } from '../models/IEnrichedOccupationsResponse';
 import { ICompetencies } from '../models/ICompetencies';
 import { IOccupationGroup } from '../models/IOccupationGroup';
 import {
+  DigiButton,
   DigiLayoutContainer,
-  DigiList,
-  DigiLoaderSpinner,
   DigiTypography,
   DigiTypographyHeadingJumbo,
+  DigiIconArrowLeft,
 } from '@digi/arbetsformedlingen-react';
 import {
-  ListType,
-  LoaderSpinnerSize,
+  ButtonSize,
+  ButtonVariation,
   TypographyHeadingJumboLevel,
 } from '@digi/arbetsformedlingen';
+import './EnrichedOccupation.scss';
+import { Spinner } from './Spinner';
+import { getSCBStatistics } from '../services/SCBStatisticsService';
+import { CompetencyChart } from './CompetencyChart';
+import { SalariesChart } from './SalariesChart';
 
 export const EnrichedOccupation = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [occupation, setOccupation] = useState(
     {} as IEnrichedOccupationsResponse
   );
@@ -27,6 +33,7 @@ export const EnrichedOccupation = () => {
     {} as IOccupationGroup
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [averageSalaries, setAverageSalaries] = useState([] as number[]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,32 +45,60 @@ export const EnrichedOccupation = () => {
           result.metadata.enriched_candidates_term_frequency.competencies
         );
         setOccupationGroup(result.occupation_group);
+        await getAverageSalary(result.occupation_group.ssyk);
         setIsLoading(false);
       }
     };
     fetchData();
   }, [id]);
 
+  const getAverageSalary = async (ssyk: string) => {
+    const response = await getSCBStatistics(ssyk);
+    const averageSalaries = response.data.map((salary: any) =>
+      Number(salary.values[0])
+    );
+    setAverageSalaries(averageSalaries);
+  };
+
   return (
     <div>
-      {isLoading && (
-        <DigiLoaderSpinner afSize={LoaderSpinnerSize.LARGE}></DigiLoaderSpinner>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <DigiLayoutContainer afVerticalPadding>
+          <Link to={'/related-occupations'}></Link>
+          <DigiTypography af-variation="large">
+            <DigiTypographyHeadingJumbo
+              afText={occupation.occupation_label}
+              afLevel={TypographyHeadingJumboLevel.H1}
+            ></DigiTypographyHeadingJumbo>
+            <DigiButton
+              onAfOnClick={() => navigate(-1)}
+              afSize={ButtonSize.SMALL}
+              afVariation={ButtonVariation.FUNCTION}
+            >
+              <DigiIconArrowLeft afTitle="Tillbaka" style={{ width: '35px' }} />
+            </DigiButton>
+            <div className="chartContainer">
+              {competencies.length !== 0 ? (
+                <CompetencyChart
+                  competencies={competencies}
+                  occupationGroup={occupationGroup}
+                />
+              ) : (
+                <></>
+              )}
+            </div>
+            <div className="chartContainer">
+              {averageSalaries.length !== 0 ? (
+                <SalariesChart averageSalaries={averageSalaries} />
+              ) : (
+                <></>
+              )}
+            </div>
+          </DigiTypography>
+        </DigiLayoutContainer>
       )}
-      <DigiLayoutContainer afVerticalPadding>
-        <DigiTypography af-variation="large">
-          <DigiTypographyHeadingJumbo
-            afText={occupation.occupation_label}
-            afLevel={TypographyHeadingJumboLevel.H1}
-          ></DigiTypographyHeadingJumbo>
-          <p>{occupationGroup.occupation_group_label}</p>
-          <p>Dom 10 mest eftertraktade kompetenserna för detta yrket är:</p>
-          <DigiList afListType={ListType.NUMBERED}>
-            {competencies.slice(0, 10).map((competency) => (
-              <li key={competency.term}>{competency.term}</li>
-            ))}
-          </DigiList>
-        </DigiTypography>
-      </DigiLayoutContainer>
     </div>
   );
 };

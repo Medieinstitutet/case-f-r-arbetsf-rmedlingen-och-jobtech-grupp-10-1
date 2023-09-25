@@ -1,19 +1,24 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
 import { RelatedOccupationsContext } from '../contexts/RelatedOccupationsContext';
-import { IMatchByTextResponse } from '../models/IMatchByTextResponse';
+import {
+  IRelatedOccupationsState,
+  RelatedOccupationsReducer,
+} from '../reducers/RelatedOccupationsReducer';
 
 interface IOccupationsContextProvider {
   children: JSX.Element | JSX.Element[];
 }
 
-export const OccupationsContextProvider = ({ children }: IOccupationsContextProvider) => {
-  const [occupationsResponse, setOccupationsResponse] =
-    useState<IMatchByTextResponse>({} as IMatchByTextResponse);
+export const OccupationsContextProvider = ({
+  children,
+}: IOccupationsContextProvider) => {
+  const [state, dispatch] = useReducer(
+    RelatedOccupationsReducer,
+    {} as IRelatedOccupationsState
+  );
 
   return (
-    <RelatedOccupationsContext.Provider
-      value={{ occupationsResponse, setOccupationsResponse }}
-    >
+    <RelatedOccupationsContext.Provider value={{ state, dispatch }}>
       {children}
     </RelatedOccupationsContext.Provider>
   );
