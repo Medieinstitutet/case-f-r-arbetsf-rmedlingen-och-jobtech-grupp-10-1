@@ -23,6 +23,7 @@ import {
   FormValidationMessageVariation,
 } from '@digi/arbetsformedlingen';
 import { useNavigate } from 'react-router-dom';
+import { Spinner } from './Spinner';
 import { DigiFormTextareaCustomEvent, DigiFormInputCustomEvent, } from '@digi/arbetsformedlingen/dist/types/components';
 
 const RelatedOccupationInput = () => {
@@ -35,8 +36,10 @@ const RelatedOccupationInput = () => {
   const [searchText, setSearchText] = useState<string>('');
   const [searchTitle, setSearchTitle] = useState<string>('');
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleSubmit = async () => {
+    setIsLoading(true);
     const searchWords = searchText.split(' ').filter((word) => word !== '');
     const queryLength = searchWords.length;
 
@@ -80,6 +83,7 @@ const RelatedOccupationInput = () => {
   return (
     <DigiLayoutContainer afVerticalPadding>
       <div>
+        {isLoading && <Spinner />}  
         {showLengthError && (
           <DigiFormValidationMessage
             afVariation={FormValidationMessageVariation.ERROR}
