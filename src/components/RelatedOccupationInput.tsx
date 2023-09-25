@@ -24,7 +24,10 @@ import {
 } from '@digi/arbetsformedlingen';
 import { useNavigate } from 'react-router-dom';
 import { Spinner } from './Spinner';
-import { DigiFormTextareaCustomEvent, DigiFormInputCustomEvent, } from '@digi/arbetsformedlingen/dist/types/components';
+import {
+  DigiFormTextareaCustomEvent,
+  DigiFormInputCustomEvent,
+} from '@digi/arbetsformedlingen/dist/types/components';
 
 const RelatedOccupationInput = () => {
   const [showLengthError, setShowLengthError] = useState(false);
@@ -71,6 +74,7 @@ const RelatedOccupationInput = () => {
     } else {
       setShowLengthError(true);
     }
+    setIsLoading(false);
   };
 
   const handleSearchTextChange = (event: DigiFormTextareaCustomEvent<any>) => {
@@ -83,7 +87,7 @@ const RelatedOccupationInput = () => {
   return (
     <DigiLayoutContainer afVerticalPadding>
       <div>
-        {isLoading && <Spinner />}  
+        {isLoading && <Spinner />}
         {showLengthError && (
           <DigiFormValidationMessage
             afVariation={FormValidationMessageVariation.ERROR}
