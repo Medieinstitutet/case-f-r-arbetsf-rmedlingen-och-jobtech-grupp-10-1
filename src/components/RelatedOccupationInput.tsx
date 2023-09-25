@@ -23,6 +23,7 @@ import { useNavigate } from 'react-router-dom';
 const RelatedOccupationInput = () => {
   const [_showLengthError, setShowLengthError] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
+  const [identifiedKeywords, setIdentifiedKeywords] = useState<string[]>([]);
   const { dispatch } = useContext<IRelatedOccupationsContext>(
     RelatedOccupationsContext
   );
@@ -34,13 +35,21 @@ const RelatedOccupationInput = () => {
     if (queryLength >= 3) {
       setShowLengthError(false);
       const response = await postSearchQuery(searchText);
-      dispatch({ type: 'SET_RELATED_OCCUPATIONS', payload: response });
-      dispatch({
-        type: 'SET_LATEST_SEARCH',
-        payload: { title: '', freeText: searchText },
-      });
-      setSearchText('');
-      navigate('/related-occupations');
+      console.log(response);
+      
+      if (response.hits_total !== 0) {
+
+        dispatch({ type: 'SET_RELATED_OCCUPATIONS', payload: response });
+        dispatch({
+          type: 'SET_LATEST_SEARCH',
+          payload: { title: '', freeText: searchText },
+        });
+        setSearchText('');
+        navigate('/related-occupations');
+      } else {
+        setShowDialog(true);
+        setIdentifiedKeywords([...response.identified_keywords_for_input.competencies]);
+      }
     } else {
       setShowLengthError(true);
     }
@@ -80,7 +89,7 @@ const RelatedOccupationInput = () => {
           afSize={DialogSize.MEDIUM}
           afShowDialog={showDialog}
           afHeadingLevel={DialogHeadingLevel.H3}
-          afHeading="Sökningen gav inga resultat, prova att söka med andra ord."
+          afHeading={`Sökningen gav inga resultat, prova att lägga till fler ord i din sökning. De relevanta orden hittills är: ${identifiedKeywords.join(', ')}`}
           afCloseButtonText=""
           afPrimaryButtonText="OK"
           onAfOnClose={() => setShowDialog(false)}
