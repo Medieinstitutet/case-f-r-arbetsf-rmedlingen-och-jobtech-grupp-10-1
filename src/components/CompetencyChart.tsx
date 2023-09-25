@@ -38,5 +38,5 @@ export const CompetencyChart = ({
     infoText: `Talet står för hur många procent som en viss kompetens utgör inom annonser för ett visst yrke.`,
   };
 
-  return <DigiBarChart afChartData={competencyData} />;
+  return <DigiBarChart afChartData={competencyData} afHeadingLevel="H2" />;
 };

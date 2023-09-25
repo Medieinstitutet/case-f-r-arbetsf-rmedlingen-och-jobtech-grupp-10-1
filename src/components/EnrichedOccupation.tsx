@@ -10,18 +10,17 @@ import {
   DigiTypography,
   DigiTypographyHeadingJumbo,
   DigiIconArrowLeft,
-  DigiChartLine,
 } from '@digi/arbetsformedlingen-react';
 import {
   ButtonSize,
   ButtonVariation,
   TypographyHeadingJumboLevel,
 } from '@digi/arbetsformedlingen';
-import { IChartData } from '../models/IChartData';
 import './EnrichedOccupation.scss';
 import { Spinner } from './Spinner';
 import { getSCBStatistics } from '../services/SCBStatisticsService';
 import { CompetencyChart } from './CompetencyChart';
+import { SalariesChart } from './SalariesChart';
 
 export const EnrichedOccupation = () => {
   const { id } = useParams();
@@ -61,22 +60,6 @@ export const EnrichedOccupation = () => {
     setAverageSalaries(averageSalaries);
   };
 
-  const salaryData: IChartData = {
-    data: {
-      xValues: [1, 2, 3, 4, 5],
-      series: [
-        {
-          yValues: averageSalaries,
-          title: 'Lön',
-        },
-      ],
-      xValueNames: ['2018', '2019', '2020', '2021', '2022'],
-    },
-    x: 'År',
-    y: 'Lön',
-    title: 'Löneutveckling',
-  };
-
   return (
     <div>
       {isLoading ? (
@@ -108,10 +91,7 @@ export const EnrichedOccupation = () => {
             </div>
             <div className="chartContainer">
               {averageSalaries.length !== 0 ? (
-                <DigiChartLine
-                  afChartData={salaryData}
-                  af-heading-level="h2"
-                ></DigiChartLine>
+                <SalariesChart averageSalaries={averageSalaries} />
               ) : (
                 <></>
               )}
