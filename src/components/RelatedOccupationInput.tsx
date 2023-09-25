@@ -38,8 +38,6 @@ const RelatedOccupationInput = () => {
   const handleSubmit = async () => {
     const searchWords = searchText.split(' ').filter((word) => word !== '');
     const queryLength = searchWords.length;
-    console.log(searchWords);
-    
 
     if (queryLength >= 3) {
       setShowLengthError(false);
