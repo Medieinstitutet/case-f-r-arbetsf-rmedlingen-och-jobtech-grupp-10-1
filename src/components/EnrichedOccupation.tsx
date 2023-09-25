@@ -108,43 +108,43 @@ export const EnrichedOccupation = () => {
       {isLoading ? (
         <Spinner />
       ) : (
-      <DigiLayoutContainer afVerticalPadding>
-        <Link to={'/related-occupations'}></Link>
-        <DigiTypography af-variation="large">
-          <DigiTypographyHeadingJumbo
-            afText={occupation.occupation_label}
-            afLevel={TypographyHeadingJumboLevel.H1}
-          ></DigiTypographyHeadingJumbo>
-          <DigiButton
-            onAfOnClick={() => navigate(-1)}
-            afSize={ButtonSize.SMALL}
-            afVariation={ButtonVariation.FUNCTION}
-          >
-            <DigiIconArrowLeft afTitle="Tillbaka" style={{ width: '35px' }} />
-          </DigiButton>
-          <div className="chartContainer">
-            {competencies.length !== 0 ? (
-              <DigiBarChart
-                afChartData={competencyData}
-                af-heading-level="h2"
-              ></DigiBarChart>
-            ) : (
-              <></>
-            )}
-          </div>
-          <div className="chartContainer">
-            {averageSalaries.length !== 0 ? (
-              <DigiChartLine
-                afChartData={salaryData}
-                af-heading-level="h2"
-              ></DigiChartLine>
-            ) : (
-              <></>
-            )}
-          </div>
-        </DigiTypography>
-      </DigiLayoutContainer>
-       )
+        <DigiLayoutContainer afVerticalPadding>
+          <Link to={'/related-occupations'}></Link>
+          <DigiTypography af-variation="large">
+            <DigiTypographyHeadingJumbo
+              afText={occupation.occupation_label}
+              afLevel={TypographyHeadingJumboLevel.H1}
+            ></DigiTypographyHeadingJumbo>
+            <DigiButton
+              onAfOnClick={() => navigate(-1)}
+              afSize={ButtonSize.SMALL}
+              afVariation={ButtonVariation.FUNCTION}
+            >
+              <DigiIconArrowLeft afTitle="Tillbaka" style={{ width: '35px' }} />
+            </DigiButton>
+            <div className="chartContainer">
+              {competencies.length !== 0 ? (
+                <DigiBarChart
+                  afChartData={competencyData}
+                  af-heading-level="h2"
+                ></DigiBarChart>
+              ) : (
+                <></>
+              )}
+            </div>
+            <div className="chartContainer">
+              {averageSalaries.length !== 0 ? (
+                <DigiChartLine
+                  afChartData={salaryData}
+                  af-heading-level="h2"
+                ></DigiChartLine>
+              ) : (
+                <></>
+              )}
+            </div>
+          </DigiTypography>
+        </DigiLayoutContainer>
+      )}
     </div>
   );
 };
