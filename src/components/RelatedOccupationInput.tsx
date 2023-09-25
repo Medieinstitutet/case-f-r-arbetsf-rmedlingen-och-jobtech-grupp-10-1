@@ -111,7 +111,7 @@ const RelatedOccupationInput = () => {
           afRequired
         />
         <DigiFormInput
-          afLabel="Titel"
+          afLabel="Utbildningens namn"
           value={searchTitle}
           onAfOnChange={handleSearchTitleChange}
         />
