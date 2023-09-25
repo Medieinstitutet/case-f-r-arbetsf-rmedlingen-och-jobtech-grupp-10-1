@@ -14,17 +14,19 @@ import {
   DigiDialog,
   DigiFormInput,
   DigiFormTextarea,
+  DigiFormValidationMessage,
   DigiLayoutContainer,
 } from '@digi/arbetsformedlingen-react';
 import {
-  DigiFormInputCustomEvent,
-  DigiFormTextareaCustomEvent,
-} from '@digi/arbetsformedlingen/dist/types/components';
-import { DialogSize, DialogHeadingLevel } from '@digi/arbetsformedlingen';
+  DialogSize,
+  DialogHeadingLevel,
+  FormValidationMessageVariation,
+} from '@digi/arbetsformedlingen';
 import { useNavigate } from 'react-router-dom';
+import { DigiFormTextareaCustomEvent, DigiFormInputCustomEvent, } from '@digi/arbetsformedlingen/dist/types/components';
 
 const RelatedOccupationInput = () => {
-  const [_showLengthError, setShowLengthError] = useState(false);
+  const [showLengthError, setShowLengthError] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [identifiedKeywords, setIdentifiedKeywords] = useState<string[]>([]);
   const { dispatch } = useContext<IRelatedOccupationsContext>(
@@ -35,7 +37,9 @@ const RelatedOccupationInput = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    const queryLength = searchText.split(' ').length;
+    const searchWords = searchText.split(' ').filter((word) => word !== '');
+    const queryLength = searchWords.length;
+
     if (queryLength >= 3) {
       const query =
         searchTitle !== ''
@@ -76,12 +80,25 @@ const RelatedOccupationInput = () => {
   return (
     <DigiLayoutContainer afVerticalPadding>
       <div>
+        {showLengthError && (
+          <DigiFormValidationMessage
+            afVariation={FormValidationMessageVariation.ERROR}
+          >
+            Minst tre sökord måste anges
+          </DigiFormValidationMessage>
+        )}
         <DigiFormTextarea
           value={searchText}
           onAfOnChange={handleSearchTextChange}
+          onAfOnFocus={() => setShowLengthError(false)}
           afLabel="Fritext sök"
           afVariation={FormTextareaVariation.MEDIUM}
-          afValidation={FormTextareaValidation.NEUTRAL}
+          afValidation={
+            showLengthError
+              ? FormTextareaValidation.ERROR
+              : FormTextareaValidation.NEUTRAL
+          }
+          afRequired
         />
         <DigiFormInput
           afLabel="Titel"
