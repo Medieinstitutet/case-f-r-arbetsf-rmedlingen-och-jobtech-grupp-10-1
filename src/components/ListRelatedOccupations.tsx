@@ -17,6 +17,7 @@ import { useContext, useEffect, useState } from 'react';
 import { DigiNavigationPaginationCustomEvent } from '@digi/arbetsformedlingen/dist/types/components';
 import { postSearchQuery } from '../services/relatedOccupationsSearchService';
 import { Spinner } from './Spinner';
+import { StyledDigiNavigationPagination } from './styled/Pagination';
 
 const ListRelatedOccupations = () => {
   const calculateResultStart = (updated: number) => {
@@ -89,7 +90,7 @@ const ListRelatedOccupations = () => {
     <div>
       {isLoading && <Spinner></Spinner>}
       {state.occupations?.hits_returned ? (
-        <DigiNavigationPagination
+        <StyledDigiNavigationPagination
           afTotalPages={Math.ceil(state.occupations.hits_total / 10)}
           afInitActive-page={searchParams.get('activePage') || '1'}
           afCurrentResultStart={currentResultCount?.start}
@@ -115,7 +116,7 @@ const ListRelatedOccupations = () => {
               ))}
             </div>
           </DigiLayoutColumns>
-        </DigiNavigationPagination>
+        </StyledDigiNavigationPagination>
       ) : (
         <></>
       )}
