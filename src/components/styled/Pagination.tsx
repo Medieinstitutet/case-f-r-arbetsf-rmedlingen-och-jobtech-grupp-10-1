@@ -3,8 +3,11 @@ import styled from 'styled-components';
 import { callToAction } from './variables';
 
 export const StyledDigiNavigationPagination = styled(DigiNavigationPagination)`
-  &&& {
-    --digi--button--color--background--primary--default: green !important;
-    --COLOR--BACKGROUND--DEFAULT: green !important;
-  }
+  /*   &&& {
+    li {
+      --digi--global--color--profile--blue--base: green !important;
+      --digi--button--color--background--primary--default: green;
+      --COLOR--BACKGROUND--DEFAULT: green !important;
+    }
+  } */
 `;
