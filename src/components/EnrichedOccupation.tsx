@@ -46,7 +46,7 @@ export const EnrichedOccupation = () => {
           result.metadata.enriched_candidates_term_frequency.competencies
         );
         setOccupationGroup(result.occupation_group);
-        getAverageSalary(result.occupation_group.ssyk);
+        await getAverageSalary(result.occupation_group.ssyk);
         setIsLoading(false);
       }
     };
