@@ -100,7 +100,7 @@ export const EnrichedOccupation = () => {
     },
     x: 'År',
     y: 'Lön',
-    title: 'Löneutveckling',
+    title: 'Löneutveckling'
   };
 
   return (

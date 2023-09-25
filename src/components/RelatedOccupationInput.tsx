@@ -19,6 +19,7 @@ import {
 import { DigiFormTextareaCustomEvent } from '@digi/arbetsformedlingen/dist/types/components';
 import { DialogSize, DialogHeadingLevel } from '@digi/arbetsformedlingen';
 import { useNavigate } from 'react-router-dom';
+import { StyledDigiButton } from './styled/Buttons';
 
 const RelatedOccupationInput = () => {
   const [_showLengthError, setShowLengthError] = useState(false);
@@ -61,13 +62,13 @@ const RelatedOccupationInput = () => {
           afValidation={FormTextareaValidation.NEUTRAL}
         />
         <DigiFormInput afLabel="Titel" />
-        <DigiButton
+        <StyledDigiButton
           onAfOnClick={handleSubmit}
           af-variation="primary"
           style={{ marginRight: '0.5rem' }}
         >
           Sök
-        </DigiButton>
+        </StyledDigiButton>
         <DigiButton
           af-variation="secondary"
           onAfOnClick={() => {

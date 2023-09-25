@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import { DigiButton } from '@digi/arbetsformedlingen-react';
-import { primary1, primary2 } from './variables';
+import { callToAction, primary, primaryBright, secondary } from './variables';
 
 export const StyledDigiButton = styled(DigiButton)`
   &&& {
-    --digi--button--color--background--primary--default: ${primary1};
-    --digi--button--color--background--primary--hover: ${primary2};
+    --digi--button--color--background--primary--default: ${callToAction};
+    --digi--button--color--background--primary--hover: ${secondary};
 
-    --digi--button--color--text--primary--default: ${primary2};
-    --digi--button--color--text--primary--hover: ${primary1};
+    --digi--button--color--text--primary--default: ${primaryBright};
+    --digi--button--color--text--primary--hover: ${primary};
   }
 `;
 /* 
