@@ -8,7 +8,6 @@ import {
   DigiBarChart,
   DigiButton,
   DigiLayoutContainer,
-  DigiLoaderSpinner,
   DigiTypography,
   DigiTypographyHeadingJumbo,
   DigiIconArrowLeft,
@@ -17,11 +16,11 @@ import {
 import {
   ButtonSize,
   ButtonVariation,
-  LoaderSpinnerSize,
   TypographyHeadingJumboLevel,
 } from '@digi/arbetsformedlingen';
 import { IChartData } from '../models/IChartData';
 import './EnrichedOccupation.scss';
+import { Spinner } from './Spinner';
 import { getSCBStatistics } from '../services/SCBStatisticsService';
 
 export const EnrichedOccupation = () => {
@@ -106,12 +105,9 @@ export const EnrichedOccupation = () => {
 
   return (
     <div>
-      {isLoading && (
-        <DigiLoaderSpinner
-          afSize={LoaderSpinnerSize.LARGE}
-          className="spinner"
-        ></DigiLoaderSpinner>
-      )}
+      {isLoading ? (
+        <Spinner />
+      ) : (
       <DigiLayoutContainer afVerticalPadding>
         <Link to={'/related-occupations'}></Link>
         <DigiTypography af-variation="large">
@@ -148,6 +144,7 @@ export const EnrichedOccupation = () => {
           </div>
         </DigiTypography>
       </DigiLayoutContainer>
+       )
     </div>
   );
 };
