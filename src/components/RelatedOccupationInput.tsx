@@ -23,7 +23,7 @@ import {
   FormValidationMessageVariation,
 } from '@digi/arbetsformedlingen';
 import { useNavigate } from 'react-router-dom';
-import { DigiFormTextareaCustomEvent } from '@digi/arbetsformedlingen/dist/types/components';
+import { DigiFormTextareaCustomEvent, DigiFormInputCustomEvent, } from '@digi/arbetsformedlingen/dist/types/components';
 
 const RelatedOccupationInput = () => {
   const [showLengthError, setShowLengthError] = useState(false);
@@ -33,6 +33,7 @@ const RelatedOccupationInput = () => {
     RelatedOccupationsContext
   );
   const [searchText, setSearchText] = useState<string>('');
+  const [searchTitle, setSearchTitle] = useState<string>('');
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
@@ -40,15 +41,21 @@ const RelatedOccupationInput = () => {
     const queryLength = searchWords.length;
 
     if (queryLength >= 3) {
+      const query =
+        searchTitle !== ''
+          ? `${searchText}&input_headline=${searchTitle}`
+          : searchText;
+      console.log(query);
+
       setShowLengthError(false);
-      const response = await postSearchQuery(searchText);
+      const response = await postSearchQuery(query);
       console.log(response);
 
       if (response.hits_total !== 0) {
         dispatch({ type: 'SET_RELATED_OCCUPATIONS', payload: response });
         dispatch({
           type: 'SET_LATEST_SEARCH',
-          payload: { title: '', freeText: searchText },
+          payload: { title: searchTitle, freeText: searchText },
         });
         setSearchText('');
         navigate('/related-occupations');
@@ -65,6 +72,9 @@ const RelatedOccupationInput = () => {
 
   const handleSearchTextChange = (event: DigiFormTextareaCustomEvent<any>) => {
     setSearchText(event.target.value);
+  };
+  const handleSearchTitleChange = (event: DigiFormInputCustomEvent<string>) => {
+    setSearchTitle(event.target.value as string);
   };
 
   return (
@@ -90,7 +100,11 @@ const RelatedOccupationInput = () => {
           }
           afRequired
         />
-        <DigiFormInput afLabel="Titel" />
+        <DigiFormInput
+          afLabel="Titel"
+          value={searchTitle}
+          onAfOnChange={handleSearchTitleChange}
+        />
         <DigiButton
           onAfOnClick={handleSubmit}
           af-variation="primary"
