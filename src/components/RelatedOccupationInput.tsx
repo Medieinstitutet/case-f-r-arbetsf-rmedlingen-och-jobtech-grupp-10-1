@@ -84,7 +84,7 @@ const RelatedOccupationInput = () => {
 
   return (
     <DigiLayoutContainer afVerticalPadding>
-      <div>
+      <div style={{maxWidth: '500px'}}>
         {isLoading && <Spinner />}
         {showLengthError && (
           <DigiFormValidationMessage
