@@ -10,7 +10,6 @@ import {
   DigiTypography,
   DigiTypographyHeadingJumbo,
   DigiIconArrowLeft,
-  DigiDialog,
   DigiExpandableAccordion,
 } from '@digi/arbetsformedlingen-react';
 import {
@@ -24,6 +23,7 @@ import { getSCBStatistics } from '../services/SCBStatisticsService';
 import { CompetencyChart } from './CompetencyChart';
 import { SalariesChart } from './SalariesChart';
 import { StyledChartContainer } from './styled/StyledChartContainer';
+import Modal from './Modal';
 
 export const EnrichedOccupation = () => {
   const { id } = useParams();
@@ -72,16 +72,15 @@ export const EnrichedOccupation = () => {
 
   return (
     <div>
-      <DigiDialog
-        afShowDialog={showErrorModal}
-        afHeading="Något gick fel, troligtvis behöver du aktivera CORS. Vill du göra det, tryck OK, annars avbryt"
-        onAfPrimaryButtonClick={() =>
+      <Modal
+        showDialog={showErrorModal}
+        text="Något gick fel, troligtvis behöver du aktivera CORS. Vill du göra det, tryck OK, annars avbryt"
+        onPrimaryButtonClick={() =>
           window.location.replace('https://cors-anywhere.herokuapp.com/')
         }
-        onAfSecondaryButtonClick={() => setShowErrorModal(false)}
-        afPrimaryButtonText="OK"
-        afSecondaryButtonText="Avbryt"
-        afCloseButtonText=''
+        onSecondaryButtonClick={() => setShowErrorModal(false)}
+        primaryButtonText="OK"
+        secondaryButtonText="Avbryt"
       />
       {isLoading ? (
         <Spinner />

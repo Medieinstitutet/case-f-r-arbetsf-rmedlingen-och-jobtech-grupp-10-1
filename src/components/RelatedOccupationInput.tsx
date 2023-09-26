@@ -11,15 +11,12 @@ import {
 } from '@digi/arbetsformedlingen';
 import {
   DigiButton,
-  DigiDialog,
   DigiFormInput,
   DigiFormTextarea,
   DigiFormValidationMessage,
   DigiLayoutContainer,
 } from '@digi/arbetsformedlingen-react';
 import {
-  DialogSize,
-  DialogHeadingLevel,
   FormValidationMessageVariation,
 } from '@digi/arbetsformedlingen';
 import { useNavigate } from 'react-router-dom';
@@ -28,6 +25,7 @@ import {
   DigiFormTextareaCustomEvent,
   DigiFormInputCustomEvent,
 } from '@digi/arbetsformedlingen/dist/types/components';
+import Modal from './Modal';
 
 const RelatedOccupationInput = () => {
   const [showLengthError, setShowLengthError] = useState(false);
@@ -84,7 +82,7 @@ const RelatedOccupationInput = () => {
 
   return (
     <DigiLayoutContainer afVerticalPadding>
-      <div style={{maxWidth: '500px'}}>
+      <div style={{ maxWidth: '500px' }}>
         {isLoading && <Spinner />}
         {showLengthError && (
           <DigiFormValidationMessage
@@ -129,17 +127,17 @@ const RelatedOccupationInput = () => {
         >
           Rensa
         </DigiButton>
-        <DigiDialog
-          afSize={DialogSize.MEDIUM}
-          afShowDialog={showDialog}
-          afHeadingLevel={DialogHeadingLevel.H3}
-          afHeading={`Sökningen gav inga resultat, prova att lägga till fler ord i din sökning. De relevanta orden hittills är: ${identifiedKeywords.join(
-            ', '
-          )}`}
-          afCloseButtonText=""
-          afPrimaryButtonText="OK"
-          onAfOnClose={() => setShowDialog(false)}
-          onAfPrimaryButtonClick={() => {
+        <Modal
+          text={`Sökningen gav inga resultat, prova att lägga till fler ord i din sökning. ${
+            identifiedKeywords.length > 0
+              ? `De relevanta orden hittills är: ${identifiedKeywords.join(
+                  ', '
+                )}`
+              : ''
+          }`}
+          showDialog={showDialog}
+          primaryButtonText="OK"
+          onPrimaryButtonClick={() => {
             setShowDialog(false);
           }}
         />
