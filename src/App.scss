@@ -2,13 +2,19 @@
 $font-path: '/node_modules/@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/fonts/src/assets/fonts/' !default;
 @import '@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/fonts/src/fonts.scss';
 
+$callToAction: #232B1B;
+$primary: rgb(67, 83, 52);
+$hover: rgb(158, 179, 132);
+$secondary: rgb(250, 241, 228);
+$variable: rgb(206, 222, 189);
+
 * {
   margin: 0;
   // background-color: rgb(240, 240, 240);
 }
 
 .headerH1 {
-  margin: 0;
+  margin: 2rem;
 }
 
 a {
@@ -20,16 +26,31 @@ a {
 }
 
 .sc-digi-button-h .digi-button--variation-primary.sc-digi-button {
-  --digi--button--color--background--primary--default: rgb(33, 53, 85);
-  --digi--button--color--background--primary--hover: rgb(79, 112, 156);
-  --digi--button--color--background--primary--focus: rgb(79, 112, 156);
-  --digi--button--color--background--primary--active: rgb(33, 53, 85);
+  --digi--button--color--background--primary--default: #{$callToAction};
+  --digi--button--color--background--primary--hover: #{$hover};
+  --digi--button--color--background--primary--focus: #{$callToAction};
+  --digi--button--color--background--primary--active: #{$callToAction};
+
+  --digi--button--color--border--primary--default: #{$callToAction};
+  --digi--button--color--border--primary--hover: #{$callToAction};
+  --digi--button--color--border--primary--focus: #{$callToAction};
+  --digi--button--color--border--primary--active: #{$callToAction};
 }
+
 .sc-digi-button-h .digi-button--variation-secondary.sc-digi-button {
-  --digi--button--color--background--secondary--default: rgb(240, 240, 240);
-  --digi--button--color--background--secondary--hover: rgb(33, 53, 85);
-  --digi--button--color--background--secondary--focus: rgb(33, 53, 85);
-  --digi--button--color--background--secondary--active: rgb(33, 53, 85);
+  --digi--button--color--background--secondary--default: #{$secondary};
+  --digi--button--color--background--secondary--hover: #{$hover};
+  --digi--button--color--background--secondary--focus: #{$secondary};
+  --digi--button--color--background--secondary--active: #{$secondary};
+
+  --digi--button--color--border--secondary--default: #{$callToAction};
+  --digi--button--color--border--secondary--hover: #{$callToAction};
+  --digi--button--color--border--secondary--focus: #{$callToAction};
+  --digi--button--color--border--secondary--active: #{$callToAction};
+
+  --digi--button--color--text--secondary--default: #{$callToAction};
+  --digi--button--color--text--secondary--focus: #{$callToAction};
+  --digi--button--color--text--secondary--active: #{$callToAction};
   
   --digi--button--color--text--secondary--hover:rgb(240, 240, 240);
   --digi--button--color--icon--secondary--hover:rgb(240, 240, 240);
