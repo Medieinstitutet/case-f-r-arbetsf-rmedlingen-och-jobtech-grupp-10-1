@@ -50,3 +50,15 @@ a {
   --digi--button--color--text--secondary--hover:rgb(240, 240, 240);
   --digi--button--color--icon--secondary--hover:rgb(240, 240, 240);
 }
+
+.sc-digi-expandable-accordion-h .digi-expandable-accordion.sc-digi-expandable-accordion::after {
+  --digi--expandable-accordion--border-bottom-color: #{$callToAction};
+}
+
+.digi-expandable-accordion--variation-primary.sc-digi-expandable-accordion .digi-expandable-accordion__header.sc-digi-expandable-accordion {
+  --digi--expandable-accordion--border-bottom-color: #{$callToAction};
+}
+
+.sc-digi-typography-heading-jumbo-h .digi-typography-heading-jumbo.sc-digi-typography-heading-jumbo::after {
+  --digi--color--background--inverted-1: #{$callToAction};
+}
