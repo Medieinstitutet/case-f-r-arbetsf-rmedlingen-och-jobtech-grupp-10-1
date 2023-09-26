@@ -16,9 +16,7 @@ import {
   DigiFormValidationMessage,
   DigiLayoutContainer,
 } from '@digi/arbetsformedlingen-react';
-import {
-  FormValidationMessageVariation,
-} from '@digi/arbetsformedlingen';
+import { FormValidationMessageVariation } from '@digi/arbetsformedlingen';
 import { useNavigate } from 'react-router-dom';
 import { Spinner } from './Spinner';
 import {
@@ -123,6 +121,7 @@ const RelatedOccupationInput = () => {
           af-variation="secondary"
           onAfOnClick={() => {
             setSearchText('');
+            setSearchTitle('');
           }}
         >
           Rensa
