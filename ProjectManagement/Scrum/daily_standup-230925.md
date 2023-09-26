@@ -7,8 +7,7 @@ Today I will continue with getting styling to work with the digi components.
 
 ## NP
 
-Igår så fick jag till grundfunktionaliteten av linjediagrammet som visar lönestatistik. Det var väldigt krångligt, men efter lite hjälp så fick jag äntligen till det, och jag är väldigt nöjd med resultatet.
-Idag så ska jag fixa så att services är gjorda enligt god praxis eftersom jag började med att göra api anropen lite hastigt utan att använda serviceBase.
+Idag så ska vi titta igenom användarflödet och se vilka småtasks vi kan göra för att fixa buggar, och förbättra användandet. Och titta lite på deploy.
 
 ## AW
 
