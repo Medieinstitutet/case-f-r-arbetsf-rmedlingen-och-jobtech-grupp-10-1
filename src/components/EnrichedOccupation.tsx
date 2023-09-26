@@ -38,15 +38,20 @@ export const EnrichedOccupation = () => {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      if (id) {
-        const result = await getEnrichedOccupation(id);
-        setOccupation(result);
-        setCompetencies(
-          result.metadata.enriched_candidates_term_frequency.competencies
-        );
-        setOccupationGroup(result.occupation_group);
-        await getAverageSalary(result.occupation_group.ssyk);
+      try {
+        if (id) {
+          const result = await getEnrichedOccupation(id);
+          setOccupation(result);
+          setCompetencies(
+            result.metadata.enriched_candidates_term_frequency.competencies
+          );
+          setOccupationGroup(result.occupation_group);
+          await getAverageSalary(result.occupation_group.ssyk);
+          setIsLoading(false);
+        }
+      } catch (error) {
         setIsLoading(false);
+        navigate('https://cors-anywhere.herokuapp.com/');
       }
     };
     fetchData();
