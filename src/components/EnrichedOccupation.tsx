@@ -10,7 +10,7 @@ import {
   DigiTypography,
   DigiTypographyHeadingJumbo,
   DigiIconArrowLeft,
-DigiDialog,
+  DigiDialog,
 } from '@digi/arbetsformedlingen-react';
 import {
   ButtonSize,
@@ -34,14 +34,14 @@ export const EnrichedOccupation = () => {
     {} as IOccupationGroup
   );
   const [isLoading, setIsLoading] = useState(false);
-  const [showErrorModal, setShowErrorModal] = useState(false)
+  const [showErrorModal, setShowErrorModal] = useState(false);
   const [averageSalaries, setAverageSalaries] = useState([] as number[]);
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      try {
-        if (id) {
+      if (id) {
+        try {
           const result = await getEnrichedOccupation(id);
           setOccupation(result);
           setCompetencies(
@@ -50,12 +50,12 @@ export const EnrichedOccupation = () => {
           setOccupationGroup(result.occupation_group);
           await getAverageSalary(result.occupation_group.ssyk);
           setIsLoading(false);
-        }
-      } catch (error) {
-        console.error(error);
-        setIsLoading(false);
-        import.meta.env.DEV && setShowErrorModal(true)
+        } catch (error) {
+          console.log(error);
+          setIsLoading(false);
+          import.meta.env.DEV && setShowErrorModal(true);
           // window.location.replace('https://cors-anywhere.herokuapp.com/');
+        }
       }
     };
     fetchData();
@@ -71,13 +71,16 @@ export const EnrichedOccupation = () => {
 
   return (
     <div>
-      <DigiDialog 
-      afShowDialog={showErrorModal}
-      afHeading='Något gick fel, troligtvis behöver du aktivera CORS. Vill du göra det, tryck OK, annars avbryt'
-      onAfPrimaryButtonClick={() => window.location.replace('https://cors-anywhere.herokuapp.com/')}
-      onAfSecondaryButtonClick={() => setShowErrorModal(false)}
-      afPrimaryButtonText='OK'
-      afSecondaryButtonText='Avbryt'
+      <DigiDialog
+        afShowDialog={showErrorModal}
+        afHeading="Något gick fel, troligtvis behöver du aktivera CORS. Vill du göra det, tryck OK, annars avbryt"
+        onAfPrimaryButtonClick={() =>
+          window.location.replace('https://cors-anywhere.herokuapp.com/')
+        }
+        onAfSecondaryButtonClick={() => setShowErrorModal(false)}
+        afPrimaryButtonText="OK"
+        afSecondaryButtonText="Avbryt"
+        afCloseButtonText=''
       />
       {isLoading ? (
         <Spinner />
