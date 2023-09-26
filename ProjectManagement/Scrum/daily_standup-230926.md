@@ -11,4 +11,4 @@ Idag så ska jag fixa så att services är gjorda enligt god praxis eftersom jag
 
 ## AW
 
-Igår lade jag till en modal som visar ett meddelande om sökningen man gjorde inte gav några träffar samt fixade några buggar relaterade till paginering. Idag ska jag fixa med lite smågrejer så att allt fungerar som det ska.
+Igår fixade jag lite småsaker, idag ska jag fortsätta med det samt kolla på deploy. Jag kommer att behöva hjälp med att deploya.
