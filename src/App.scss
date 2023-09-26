@@ -30,6 +30,8 @@ a {
   --digi--button--color--border--primary--hover: #{$callToAction};
   --digi--button--color--border--primary--focus: #{$callToAction};
   --digi--button--color--border--primary--active: #{$callToAction};
+
+  --digi--button--color--text--primary--hover: #{$callToAction};
 }
 
 .sc-digi-button-h .digi-button--variation-secondary.sc-digi-button {
@@ -44,9 +46,8 @@ a {
   --digi--button--color--border--secondary--active: #{$callToAction};
 
   --digi--button--color--text--secondary--default: #{$callToAction};
-  --digi--button--color--text--secondary--focus: #{$callToAction};
   --digi--button--color--text--secondary--active: #{$callToAction};
-  
-  --digi--button--color--text--secondary--hover:rgb(240, 240, 240);
-  --digi--button--color--icon--secondary--hover:rgb(240, 240, 240);
+
+  --digi--button--color--text--secondary--hover: rgb(240, 240, 240);
+  --digi--button--color--icon--secondary--hover: rgb(240, 240, 240);
 }

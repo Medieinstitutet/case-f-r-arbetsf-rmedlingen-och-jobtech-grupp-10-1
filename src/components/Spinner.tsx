@@ -1,7 +1,12 @@
-import { LoaderSpinnerSize } from '@digi/arbetsformedlingen';
+import {
+  LoaderSpinnerSize
+} from '@digi/arbetsformedlingen';
 import { StyledDigiLoaderSpinner } from './styled/Spinner';
-import { DigiLayoutContainer } from '@digi/arbetsformedlingen-react';
+
 import './dialog.scss';
+import {
+  DigiLayoutContainer
+} from '@digi/arbetsformedlingen-react';
 
 export function Spinner() {
   return (
