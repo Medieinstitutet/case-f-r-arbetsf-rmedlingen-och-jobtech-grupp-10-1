@@ -21,7 +21,7 @@ export const CompetencyChart = ({
             .slice(0, 10)
             .map((competency) => competency.percent_for_occupation),
           title: 'Kompetens',
-          colorToken: 'blue',
+          colorToken: 'yellow',
         },
       ],
       xValueNames: competencies
