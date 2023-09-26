@@ -54,7 +54,6 @@ export const EnrichedOccupation = () => {
           console.log(error);
           setIsLoading(false);
           import.meta.env.DEV && setShowErrorModal(true);
-          // window.location.replace('https://cors-anywhere.herokuapp.com/');
         }
       }
     };
