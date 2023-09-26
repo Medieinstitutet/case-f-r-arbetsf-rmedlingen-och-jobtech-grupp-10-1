@@ -2,7 +2,8 @@
 
 ## DS
 
-Yesterday I finished the spinner. Some minor bugs in the styling left to sort out.
+Friday was a sickday so not much work was done, only the finishing touches of the spinner modal was sorted.
+Today I will continue with getting styling to work with the digi components.
 
 ## NP
 
