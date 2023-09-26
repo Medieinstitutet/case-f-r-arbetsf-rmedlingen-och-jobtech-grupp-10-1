@@ -10,6 +10,7 @@ import {
   DigiTypography,
   DigiTypographyHeadingJumbo,
   DigiIconArrowLeft,
+DigiDialog,
 } from '@digi/arbetsformedlingen-react';
 import {
   ButtonSize,
@@ -33,6 +34,7 @@ export const EnrichedOccupation = () => {
     {} as IOccupationGroup
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false)
   const [averageSalaries, setAverageSalaries] = useState([] as number[]);
 
   useEffect(() => {
@@ -50,8 +52,10 @@ export const EnrichedOccupation = () => {
           setIsLoading(false);
         }
       } catch (error) {
+        console.error(error);
         setIsLoading(false);
-        navigate('https://cors-anywhere.herokuapp.com/');
+        import.meta.env.DEV && setShowErrorModal(true)
+          // window.location.replace('https://cors-anywhere.herokuapp.com/');
       }
     };
     fetchData();
@@ -67,6 +71,14 @@ export const EnrichedOccupation = () => {
 
   return (
     <div>
+      <DigiDialog 
+      afShowDialog={showErrorModal}
+      afHeading='Något gick fel, troligtvis behöver du aktivera CORS. Vill du göra det, tryck OK, annars avbryt'
+      onAfPrimaryButtonClick={() => window.location.replace('https://cors-anywhere.herokuapp.com/')}
+      onAfSecondaryButtonClick={() => setShowErrorModal(false)}
+      afPrimaryButtonText='OK'
+      afSecondaryButtonText='Avbryt'
+      />
       {isLoading ? (
         <Spinner />
       ) : (
