@@ -100,6 +100,8 @@ const RelatedOccupationInput = () => {
           onAfOnChange={handleSearchTextChange}
           onAfOnFocus={() => setShowLengthError(false)}
           afLabel="Fritext sök"
+          afLabelDescription='Skriv in minst tre kompetenser du vill söka på. Exempel: "html, css, javascript". Eller
+          klistra in beskrivningen från en utbildning du är intresserad av.'
           afVariation={FormTextareaVariation.MEDIUM}
           afValidation={
             showLengthError
@@ -109,7 +111,7 @@ const RelatedOccupationInput = () => {
           afRequired
         />
         <DigiFormInput
-          afLabel="Titel"
+          afLabel="Utbildningens namn"
           value={searchTitle}
           onAfOnChange={handleSearchTitleChange}
         />
