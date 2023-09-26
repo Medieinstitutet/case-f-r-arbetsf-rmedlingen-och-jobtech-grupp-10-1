@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { DigiButton } from '@digi/arbetsformedlingen-react';
-import { callToAction, primary, primaryBright, secondary } from './variables';
+import colors from '../../style/_variables.module.scss';
+
+const { callToAction, secondary, primaryBright, primary } = colors;
 
 export const StyledDigiButton = styled(DigiButton)`
   &&& {
@@ -11,16 +13,3 @@ export const StyledDigiButton = styled(DigiButton)`
     --digi--button--color--text--primary--hover: ${primary};
   }
 `;
-/* 
-export const PrimaryButton = styled(Button).attrs({ className: 'testing' })`
-  background-color: grey;
-  --digi--button--color--background--primary--default: grey;
-  padding: 1rem;
-
-  &:hover {
-    outline: 2px solid yellow;
-    background-color: yellow;
-    color: white;
-  }
-`;
- */
