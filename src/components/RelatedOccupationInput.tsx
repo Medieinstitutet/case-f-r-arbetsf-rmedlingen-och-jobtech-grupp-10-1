@@ -84,7 +84,7 @@ const RelatedOccupationInput = () => {
 
   return (
     <DigiLayoutContainer afVerticalPadding>
-      <div style={{maxWidth: '500px'}}>
+      <div style={{ maxWidth: '500px' }}>
         {isLoading && <Spinner />}
         {showLengthError && (
           <DigiFormValidationMessage
@@ -133,9 +133,9 @@ const RelatedOccupationInput = () => {
           afSize={DialogSize.MEDIUM}
           afShowDialog={showDialog}
           afHeadingLevel={DialogHeadingLevel.H3}
-          afHeading={`Sökningen gav inga resultat, prova att lägga till fler ord i din sökning. De relevanta orden hittills är: ${identifiedKeywords.join(
+          afHeading={`Sökningen gav inga resultat, prova att lägga till fler ord i din sökning. ${identifiedKeywords.length > 0 ? `De relevanta orden hittills är: ${identifiedKeywords.join(
             ', '
-          )}`}
+          )}` : ''}`}
           afCloseButtonText=""
           afPrimaryButtonText="OK"
           onAfOnClose={() => setShowDialog(false)}
