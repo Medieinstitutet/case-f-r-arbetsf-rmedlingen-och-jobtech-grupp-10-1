@@ -9,13 +9,13 @@ import {
   DigiTypography,
 } from '@digi/arbetsformedlingen-react';
 import { Link } from 'react-router-dom';
+import { Header as StyledHeader} from './styled/Header';
 
 export const Header = () => {
   return (
     <header>
-      <DigiLayoutBlock
+      <StyledHeader
         afContainer={LayoutBlockContainer.FLUID}
-        afVariation={LayoutBlockVariation.SYMBOL}
         afVerticalPadding={true}
         afMarginBottom={true}
       >
@@ -25,7 +25,7 @@ export const Header = () => {
           </Link>
           {/* <DigiIconHome /> */}
         </DigiTypography>
-      </DigiLayoutBlock>
+      </StyledHeader>
     </header>
   );
 };

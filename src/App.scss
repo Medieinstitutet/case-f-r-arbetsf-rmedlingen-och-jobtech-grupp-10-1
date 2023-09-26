@@ -4,6 +4,7 @@ $font-path: '/node_modules/@digi/arbetsformedlingen/dist/digi-arbetsformedlingen
 
 * {
   margin: 0;
+  // background-color: rgb(240, 240, 240);
 }
 
 .headerH1 {
@@ -16,4 +17,20 @@ a {
   &:visited {
     color: inherit !important;
   }
+}
+
+.sc-digi-button-h .digi-button--variation-primary.sc-digi-button {
+  --digi--button--color--background--primary--default: rgb(33, 53, 85);
+  --digi--button--color--background--primary--hover: rgb(79, 112, 156);
+  --digi--button--color--background--primary--focus: rgb(79, 112, 156);
+  --digi--button--color--background--primary--active: rgb(33, 53, 85);
+}
+.sc-digi-button-h .digi-button--variation-secondary.sc-digi-button {
+  --digi--button--color--background--secondary--default: rgb(240, 240, 240);
+  --digi--button--color--background--secondary--hover: rgb(33, 53, 85);
+  --digi--button--color--background--secondary--focus: rgb(33, 53, 85);
+  --digi--button--color--background--secondary--active: rgb(33, 53, 85);
+  
+  --digi--button--color--text--secondary--hover:rgb(240, 240, 240);
+  --digi--button--color--icon--secondary--hover:rgb(240, 240, 240);
 }

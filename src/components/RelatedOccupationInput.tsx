@@ -115,6 +115,7 @@ const RelatedOccupationInput = () => {
           value={searchTitle}
           onAfOnChange={handleSearchTitleChange}
         />
+
         <DigiButton
           onAfOnClick={handleSubmit}
           af-variation="primary"
