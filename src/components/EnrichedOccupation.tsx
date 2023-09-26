@@ -10,6 +10,7 @@ import {
   DigiTypography,
   DigiTypographyHeadingJumbo,
   DigiIconArrowLeft,
+  DigiExpandableAccordion,
 } from '@digi/arbetsformedlingen-react';
 import {
   ButtonSize,
@@ -21,6 +22,7 @@ import { Spinner } from './Spinner';
 import { getSCBStatistics } from '../services/SCBStatisticsService';
 import { CompetencyChart } from './CompetencyChart';
 import { SalariesChart } from './SalariesChart';
+import { StyledChartContainer } from './styled/StyledChartContainer';
 
 export const EnrichedOccupation = () => {
   const { id } = useParams();
@@ -79,23 +81,27 @@ export const EnrichedOccupation = () => {
             >
               <DigiIconArrowLeft afTitle="Tillbaka" style={{ width: '35px' }} />
             </DigiButton>
-            <div className="chartContainer">
-              {competencies.length !== 0 ? (
-                <CompetencyChart
-                  competencies={competencies}
-                  occupationGroup={occupationGroup}
-                />
-              ) : (
-                <></>
-              )}
-            </div>
-            <div className="chartContainer">
-              {averageSalaries.length !== 0 ? (
-                <SalariesChart averageSalaries={averageSalaries} />
-              ) : (
-                <></>
-              )}
-            </div>
+            <DigiExpandableAccordion afHeading="Kompetenser" afExpanded={true}>
+              <StyledChartContainer>
+                {competencies.length !== 0 ? (
+                  <CompetencyChart
+                    competencies={competencies}
+                    occupationGroup={occupationGroup}
+                  />
+                ) : (
+                  <></>
+                )}
+              </StyledChartContainer>
+            </DigiExpandableAccordion>
+            <DigiExpandableAccordion afHeading="Löner">
+              <StyledChartContainer>
+                {averageSalaries.length !== 0 ? (
+                  <SalariesChart averageSalaries={averageSalaries} />
+                ) : (
+                  <></>
+                )}
+              </StyledChartContainer>
+            </DigiExpandableAccordion>
           </DigiTypography>
         </DigiLayoutContainer>
       )}

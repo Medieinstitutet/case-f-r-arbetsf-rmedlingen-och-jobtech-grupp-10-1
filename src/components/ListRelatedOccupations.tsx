@@ -1,5 +1,3 @@
-import { DigiNavigationPagination } from '@digi/arbetsformedlingen-react';
-
 import { RelatedOccupation } from './RelatedOccupation';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
@@ -43,7 +41,6 @@ const ListRelatedOccupations = () => {
     event: DigiNavigationPaginationCustomEvent<number>
   ) {
     setIsLoading(true);
-    console.log(event.detail);
     const offset = `&offset=${(event.detail - 1) * 10}`;
     const titleQuery =
       state.latestSearch.title !== ''
