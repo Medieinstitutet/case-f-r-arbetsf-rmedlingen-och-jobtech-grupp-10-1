@@ -10,7 +10,6 @@ const generateQueryValues = () => {
   for (let year = - 5; year < 0; year++) {
     values.push((thisYear + year).toString());
   }
-  console.log(values);
   return values;
 }
 
@@ -49,9 +48,7 @@ export const getSCBStatistics = async (ssyk: string) => {
   };
 
   // const response = await axios.post(`${PROXY_URL}${BASE_URL}`, requestBody);
-  const response = await post<IScbResponse, IScbRequest>(`${PROXY_URL}${BASE_URL}`, requestBody);
-  console.log(response);
-  
+  const response = await post<IScbResponse, IScbRequest>(`${PROXY_URL}${BASE_URL}`, requestBody);  
 
   return response;
 };

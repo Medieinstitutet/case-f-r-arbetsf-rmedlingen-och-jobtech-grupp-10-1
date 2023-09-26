@@ -51,11 +51,9 @@ const RelatedOccupationInput = () => {
         searchTitle !== ''
           ? `${searchText}&input_headline=${searchTitle}`
           : searchText;
-      console.log(query);
 
       setShowLengthError(false);
       const response = await postSearchQuery(query);
-      console.log(response);
 
       if (response.hits_total !== 0) {
         dispatch({ type: 'SET_RELATED_OCCUPATIONS', payload: response });

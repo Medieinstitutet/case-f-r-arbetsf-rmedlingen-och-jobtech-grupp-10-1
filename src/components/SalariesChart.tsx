@@ -6,7 +6,6 @@ interface ISalariesChartProps {
 }
 
 export const SalariesChart = ({ averageSalaries }: ISalariesChartProps) => {
-  console.log(averageSalaries);
 
   const salaryData: IChartData = {
     data: {
