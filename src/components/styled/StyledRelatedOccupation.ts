@@ -4,5 +4,8 @@ export const StyledRelatedOccupation = styled.div`
   margin-bottom: 1rem;
   border-bottom: 1px solid #ccc;
   padding: 1rem;
-  min-width: 500px;
+  width: 100%;
+  @media (min-width: 500px) {
+    width: 500px;
+  }
 `;
