@@ -4,6 +4,16 @@ import { IScbResponse } from '../models/IScbResponse';
 import { post } from './serviceBase';
 // import axios from 'axios';
 
+const generateQueryValues = () => {
+  const thisYear = new Date().getFullYear();
+  const values = [];
+  for (let year = - 5; year < 0; year++) {
+    values.push((thisYear + year).toString());
+  }
+  console.log(values);
+  return values;
+}
+
 const BASE_URL =
   'https://api.scb.se/OV0104/v1/doris/sv/ssd/START/AM/AM0110/AM0110A/LonYrkeRegion4A';
 const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
@@ -29,7 +39,7 @@ export const getSCBStatistics = async (ssyk: string) => {
         code: 'Tid',
         selection: {
           filter: 'item',
-          values: ['2018', '2019', '2020', '2021', '2022'],
+          values: generateQueryValues(),
         },
       },
     ],
