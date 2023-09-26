@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { DigiLoaderSpinner } from '@digi/arbetsformedlingen-react';
-import { spinnerColor } from './variables';
+import colors from '../../style/_variables.module.scss';
 
 export const StyledDigiLoaderSpinner = styled(DigiLoaderSpinner)`
   svg {
-    color: ${spinnerColor};
+    color: ${colors.primary};
   }
 `;
