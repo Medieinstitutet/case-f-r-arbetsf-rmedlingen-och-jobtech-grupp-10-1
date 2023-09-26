@@ -10,6 +10,7 @@ import {
   DigiTypography,
   DigiTypographyHeadingJumbo,
   DigiIconArrowLeft,
+  DigiDialog,
   DigiExpandableAccordion,
 } from '@digi/arbetsformedlingen-react';
 import {
@@ -35,20 +36,27 @@ export const EnrichedOccupation = () => {
     {} as IOccupationGroup
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
   const [averageSalaries, setAverageSalaries] = useState([] as number[]);
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       if (id) {
-        const result = await getEnrichedOccupation(id);
-        setOccupation(result);
-        setCompetencies(
-          result.metadata.enriched_candidates_term_frequency.competencies
-        );
-        setOccupationGroup(result.occupation_group);
-        await getAverageSalary(result.occupation_group.ssyk);
-        setIsLoading(false);
+        try {
+          const result = await getEnrichedOccupation(id);
+          setOccupation(result);
+          setCompetencies(
+            result.metadata.enriched_candidates_term_frequency.competencies
+          );
+          setOccupationGroup(result.occupation_group);
+          await getAverageSalary(result.occupation_group.ssyk);
+          setIsLoading(false);
+        } catch (error) {
+          console.log(error);
+          setIsLoading(false);
+          import.meta.env.DEV && setShowErrorModal(true);
+        }
       }
     };
     fetchData();
@@ -64,6 +72,17 @@ export const EnrichedOccupation = () => {
 
   return (
     <div>
+      <DigiDialog
+        afShowDialog={showErrorModal}
+        afHeading="Något gick fel, troligtvis behöver du aktivera CORS. Vill du göra det, tryck OK, annars avbryt"
+        onAfPrimaryButtonClick={() =>
+          window.location.replace('https://cors-anywhere.herokuapp.com/')
+        }
+        onAfSecondaryButtonClick={() => setShowErrorModal(false)}
+        afPrimaryButtonText="OK"
+        afSecondaryButtonText="Avbryt"
+        afCloseButtonText=''
+      />
       {isLoading ? (
         <Spinner />
       ) : (
