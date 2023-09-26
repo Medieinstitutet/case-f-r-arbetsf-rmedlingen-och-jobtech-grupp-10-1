@@ -1,25 +1,22 @@
 import {
-  LoaderSpinnerSize,
-  TypographyVariation,
+  LoaderSpinnerSize
 } from '@digi/arbetsformedlingen';
 import { StyledDigiLoaderSpinner } from './styled/Spinner';
+
+import './dialog.scss';
 import {
-  DigiLayoutContainer,
-  DigiTypography,
+  DigiLayoutContainer
 } from '@digi/arbetsformedlingen-react';
-import './Spinner.scss';
 
 export function Spinner() {
   return (
     <>
-      <DigiLayoutContainer className="spinnerDigiLayoutContainer">
-        <div className="spinner">
-          <DigiTypography afVariation={TypographyVariation.SMALL}>
-            <StyledDigiLoaderSpinner
-              afSize={LoaderSpinnerSize.LARGE}
-              afText="Laddar..."
-            ></StyledDigiLoaderSpinner>
-          </DigiTypography>
+      <DigiLayoutContainer className="dialog-container">
+        <div className="dialog">
+          <StyledDigiLoaderSpinner
+            afSize={LoaderSpinnerSize.LARGE}
+            afText="Laddar..."
+          ></StyledDigiLoaderSpinner>
         </div>
       </DigiLayoutContainer>
     </>
