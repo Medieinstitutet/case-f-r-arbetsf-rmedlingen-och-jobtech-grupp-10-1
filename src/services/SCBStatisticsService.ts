@@ -2,7 +2,7 @@ import { IScbRequest } from '../models/IScbRequest';
 import { IScbResponse } from '../models/IScbResponse';
 import { post } from './serviceBase';
 
-const generateQueryValues = () => {
+export const generateQueryValues = () => {
   const thisYear = new Date().getFullYear();
   const values = [];
   for (let year = -5; year < 0; year++) {

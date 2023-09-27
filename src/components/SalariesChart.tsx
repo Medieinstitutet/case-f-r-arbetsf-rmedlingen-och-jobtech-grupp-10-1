@@ -1,12 +1,12 @@
 import { DigiChartLine } from '@digi/arbetsformedlingen-react';
 import { IChartData } from '../models/IChartData';
+import { generateQueryValues } from '../services/SCBStatisticsService';
 
 interface ISalariesChartProps {
   averageSalaries: number[];
 }
 
 export const SalariesChart = ({ averageSalaries }: ISalariesChartProps) => {
-
   const salaryData: IChartData = {
     data: {
       xValues: [1, 2, 3, 4, 5],
@@ -16,7 +16,7 @@ export const SalariesChart = ({ averageSalaries }: ISalariesChartProps) => {
           title: 'Lön',
         },
       ],
-      xValueNames: ['2018', '2019', '2020', '2021', '2022'],
+      xValueNames: generateQueryValues(),
     },
     x: 'År',
     y: 'Lön',
