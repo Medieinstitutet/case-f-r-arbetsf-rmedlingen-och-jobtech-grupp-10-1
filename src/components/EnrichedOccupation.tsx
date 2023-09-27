@@ -22,8 +22,8 @@ import { Spinner } from './Spinner';
 import { getSCBStatistics } from '../services/SCBStatisticsService';
 import { CompetencyChart } from './CompetencyChart';
 import { SalariesChart } from './SalariesChart';
-import { StyledChartContainer } from './styled/StyledChartContainer';
 import Modal from './Modal';
+import { StyledChartContainer } from './styled/Div';
 
 export const EnrichedOccupation = () => {
   const { id } = useParams();

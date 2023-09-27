@@ -8,8 +8,9 @@ import { useContext, useEffect, useState } from 'react';
 import { DigiNavigationPaginationCustomEvent } from '@digi/arbetsformedlingen/dist/types/components';
 import { postSearchQuery } from '../services/relatedOccupationsSearchService';
 import { Spinner } from './Spinner';
-import { StyledDigiNavigationPagination } from './styled/Pagination';
-import { StyledListRelatedOccupations } from './styled/StyledListRelatedOccupations';
+
+import { DigiNavigationPagination } from '@digi/arbetsformedlingen-react';
+import { StyledListRelatedOccupations } from './styled/Div';
 
 const ListRelatedOccupations = () => {
   const calculateResultStart = (updated: number) => {
@@ -81,7 +82,7 @@ const ListRelatedOccupations = () => {
     <>
       {isLoading && <Spinner></Spinner>}
       {state.occupations?.hits_returned ? (
-        <StyledDigiNavigationPagination
+        <DigiNavigationPagination
           afTotalPages={Math.ceil(state.occupations.hits_total / 10)}
           afInitActive-page={searchParams.get('activePage') || '1'}
           afCurrentResultStart={currentResultCount?.start}
@@ -101,7 +102,7 @@ const ListRelatedOccupations = () => {
               />
             ))}
           </StyledListRelatedOccupations>
-        </StyledDigiNavigationPagination>
+        </DigiNavigationPagination>
       ) : (
         <></>
       )}
