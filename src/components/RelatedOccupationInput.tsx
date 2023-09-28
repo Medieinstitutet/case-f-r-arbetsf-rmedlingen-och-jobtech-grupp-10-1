@@ -11,23 +11,19 @@ import {
 } from '@digi/arbetsformedlingen';
 import {
   DigiButton,
-  DigiDialog,
   DigiFormInput,
   DigiFormTextarea,
   DigiFormValidationMessage,
   DigiLayoutContainer,
 } from '@digi/arbetsformedlingen-react';
-import {
-  DialogSize,
-  DialogHeadingLevel,
-  FormValidationMessageVariation,
-} from '@digi/arbetsformedlingen';
+import { FormValidationMessageVariation } from '@digi/arbetsformedlingen';
 import { useNavigate } from 'react-router-dom';
 import { Spinner } from './Spinner';
 import {
   DigiFormTextareaCustomEvent,
   DigiFormInputCustomEvent,
 } from '@digi/arbetsformedlingen/dist/types/components';
+import Modal from './Modal';
 
 const RelatedOccupationInput = () => {
   const [showLengthError, setShowLengthError] = useState(false);
@@ -51,11 +47,9 @@ const RelatedOccupationInput = () => {
         searchTitle !== ''
           ? `${searchText}&input_headline=${searchTitle}`
           : searchText;
-      console.log(query);
 
       setShowLengthError(false);
       const response = await postSearchQuery(query);
-      console.log(response);
 
       if (response.hits_total !== 0) {
         dispatch({ type: 'SET_RELATED_OCCUPATIONS', payload: response });
@@ -86,7 +80,7 @@ const RelatedOccupationInput = () => {
 
   return (
     <DigiLayoutContainer afVerticalPadding>
-      <div>
+      <div style={{ maxWidth: '500px' }}>
         {isLoading && <Spinner />}
         {showLengthError && (
           <DigiFormValidationMessage
@@ -100,6 +94,8 @@ const RelatedOccupationInput = () => {
           onAfOnChange={handleSearchTextChange}
           onAfOnFocus={() => setShowLengthError(false)}
           afLabel="Fritext sök"
+          afLabelDescription='Skriv in minst tre kompetenser du vill söka på. Exempel: "html, css, javascript". Eller
+          klistra in beskrivningen från en utbildning du är intresserad av.'
           afVariation={FormTextareaVariation.MEDIUM}
           afValidation={
             showLengthError
@@ -109,10 +105,11 @@ const RelatedOccupationInput = () => {
           afRequired
         />
         <DigiFormInput
-          afLabel="Titel"
+          afLabel="Utbildningens namn"
           value={searchTitle}
           onAfOnChange={handleSearchTitleChange}
         />
+
         <DigiButton
           onAfOnClick={handleSubmit}
           af-variation="primary"
@@ -124,21 +121,22 @@ const RelatedOccupationInput = () => {
           af-variation="secondary"
           onAfOnClick={() => {
             setSearchText('');
+            setSearchTitle('');
           }}
         >
           Rensa
         </DigiButton>
-        <DigiDialog
-          afSize={DialogSize.MEDIUM}
-          afShowDialog={showDialog}
-          afHeadingLevel={DialogHeadingLevel.H3}
-          afHeading={`Sökningen gav inga resultat, prova att lägga till fler ord i din sökning. De relevanta orden hittills är: ${identifiedKeywords.join(
-            ', '
-          )}`}
-          afCloseButtonText=""
-          afPrimaryButtonText="OK"
-          onAfOnClose={() => setShowDialog(false)}
-          onAfPrimaryButtonClick={() => {
+        <Modal
+          text={`Sökningen gav inga resultat, prova att lägga till fler ord i din sökning. ${
+            identifiedKeywords.length > 0
+              ? `De relevanta orden hittills är: ${identifiedKeywords.join(
+                  ', '
+                )}`
+              : ''
+          }`}
+          showDialog={showDialog}
+          primaryButtonText="OK"
+          onPrimaryButtonClick={() => {
             setShowDialog(false);
           }}
         />

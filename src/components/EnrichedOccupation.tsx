@@ -10,6 +10,7 @@ import {
   DigiTypography,
   DigiTypographyHeadingJumbo,
   DigiIconArrowLeft,
+  DigiExpandableAccordion,
 } from '@digi/arbetsformedlingen-react';
 import {
   ButtonSize,
@@ -21,6 +22,8 @@ import { Spinner } from './Spinner';
 import { getSCBStatistics } from '../services/SCBStatisticsService';
 import { CompetencyChart } from './CompetencyChart';
 import { SalariesChart } from './SalariesChart';
+import Modal from './Modal';
+import { StyledChartContainer } from './styled/Div';
 
 export const EnrichedOccupation = () => {
   const { id } = useParams();
@@ -33,20 +36,27 @@ export const EnrichedOccupation = () => {
     {} as IOccupationGroup
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
   const [averageSalaries, setAverageSalaries] = useState([] as number[]);
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       if (id) {
-        const result = await getEnrichedOccupation(id);
-        setOccupation(result);
-        setCompetencies(
-          result.metadata.enriched_candidates_term_frequency.competencies
-        );
-        setOccupationGroup(result.occupation_group);
-        await getAverageSalary(result.occupation_group.ssyk);
-        setIsLoading(false);
+        try {
+          const result = await getEnrichedOccupation(id);
+          setOccupation(result);
+          setCompetencies(
+            result.metadata.enriched_candidates_term_frequency.competencies
+          );
+          setOccupationGroup(result.occupation_group);
+          await getAverageSalary(result.occupation_group.ssyk);
+          setIsLoading(false);
+        } catch (error) {
+          console.log(error);
+          setIsLoading(false);
+          import.meta.env.DEV && setShowErrorModal(true);
+        }
       }
     };
     fetchData();
@@ -62,6 +72,16 @@ export const EnrichedOccupation = () => {
 
   return (
     <div>
+      <Modal
+        showDialog={showErrorModal}
+        text="Något gick fel, troligtvis behöver du aktivera CORS. Vill du göra det, tryck OK, annars avbryt"
+        onPrimaryButtonClick={() =>
+          window.location.replace('https://cors-anywhere.herokuapp.com/')
+        }
+        onSecondaryButtonClick={() => setShowErrorModal(false)}
+        primaryButtonText="OK"
+        secondaryButtonText="Avbryt"
+      />
       {isLoading ? (
         <Spinner />
       ) : (
@@ -79,23 +99,27 @@ export const EnrichedOccupation = () => {
             >
               <DigiIconArrowLeft afTitle="Tillbaka" style={{ width: '35px' }} />
             </DigiButton>
-            <div className="chartContainer">
-              {competencies.length !== 0 ? (
-                <CompetencyChart
-                  competencies={competencies}
-                  occupationGroup={occupationGroup}
-                />
-              ) : (
-                <></>
-              )}
-            </div>
-            <div className="chartContainer">
-              {averageSalaries.length !== 0 ? (
-                <SalariesChart averageSalaries={averageSalaries} />
-              ) : (
-                <></>
-              )}
-            </div>
+            <DigiExpandableAccordion afHeading="Kompetenser" afExpanded={true}>
+              <StyledChartContainer>
+                {competencies.length !== 0 ? (
+                  <CompetencyChart
+                    competencies={competencies}
+                    occupationGroup={occupationGroup}
+                  />
+                ) : (
+                  <></>
+                )}
+              </StyledChartContainer>
+            </DigiExpandableAccordion>
+            <DigiExpandableAccordion afHeading="Löner">
+              <StyledChartContainer>
+                {averageSalaries.length !== 0 ? (
+                  <SalariesChart averageSalaries={averageSalaries} />
+                ) : (
+                  <></>
+                )}
+              </StyledChartContainer>
+            </DigiExpandableAccordion>
           </DigiTypography>
         </DigiLayoutContainer>
       )}

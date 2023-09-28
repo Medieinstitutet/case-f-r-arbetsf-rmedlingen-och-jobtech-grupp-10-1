@@ -1,12 +1,16 @@
-.chartContainer {
-  height: 400px;
+@import '../style/variables';
 
+rect {
+  fill: #{$callToAction};
 }
 
-.spinner {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -50px;
-  margin-left: -50px;
+.sc-digi-icon-table-h svg.sc-digi-icon-table {
+  --digi--icon--color: #{$callToAction};
+}
+
+.sc-digi-button-h .digi-button--variation-function.sc-digi-button {
+  --digi--button--color--text--function--default: #{$callToAction};
+  --digi--button--color--text--function--hover: #{$callToAction};
+  --digi--button--color--text--function--focus: #{$callToAction};
+  --digi--button--color--text--function--default: #{$callToAction};
 }

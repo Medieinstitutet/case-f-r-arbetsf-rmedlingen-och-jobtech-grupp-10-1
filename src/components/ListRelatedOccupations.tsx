@@ -1,5 +1,3 @@
-import { DigiNavigationPagination } from '@digi/arbetsformedlingen-react';
-
 import { RelatedOccupation } from './RelatedOccupation';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
@@ -10,7 +8,9 @@ import { useContext, useEffect, useState } from 'react';
 import { DigiNavigationPaginationCustomEvent } from '@digi/arbetsformedlingen/dist/types/components';
 import { postSearchQuery } from '../services/relatedOccupationsSearchService';
 import { Spinner } from './Spinner';
-import { StyledListRelatedOccupations } from './styled/StyledListRelatedOccupations';
+
+import { DigiNavigationPagination } from '@digi/arbetsformedlingen-react';
+import { StyledListRelatedOccupations } from './styled/Div';
 
 const ListRelatedOccupations = () => {
   const calculateResultStart = (updated: number) => {
@@ -42,7 +42,6 @@ const ListRelatedOccupations = () => {
     event: DigiNavigationPaginationCustomEvent<number>
   ) {
     setIsLoading(true);
-    console.log(event.detail);
     const offset = `&offset=${(event.detail - 1) * 10}`;
     const titleQuery =
       state.latestSearch.title !== ''

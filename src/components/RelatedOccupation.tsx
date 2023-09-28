@@ -6,7 +6,7 @@ import {
   TypographyVariation,
 } from '@digi/arbetsformedlingen';
 import { StyledDigiButton } from './styled/Buttons';
-import { StyledRelatedOccupation } from './styled/StyledRelatedOccupation';
+import { StyledRelatedOccupation } from './styled/Div';
 
 interface IRelatedOccupationProps {
   occupation: IRelatedOccupations;

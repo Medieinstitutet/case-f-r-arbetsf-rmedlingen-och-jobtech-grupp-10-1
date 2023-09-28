@@ -1,0 +1,9 @@
+@import './variables';
+
+:export {
+  callToAction: $callToAction;
+  primary:  $primary;
+  hover: $hover;
+  secondary: $secondary;
+  variable: $variable;
+}
