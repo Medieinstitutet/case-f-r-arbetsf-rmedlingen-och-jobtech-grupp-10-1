@@ -1,0 +1,22 @@
+.dialog-container {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 999;
+
+  .dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 35%;
+    padding: 1rem;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+  }
+}

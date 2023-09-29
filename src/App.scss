@@ -1,0 +1,65 @@
+@import '@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/digi-arbetsformedlingen.css';
+$font-path: '/node_modules/@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/fonts/src/assets/fonts/' !default;
+@import '@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/fonts/src/fonts.scss';
+@import './style/variables';
+
+* {
+  margin: 0;
+  // background-color: rgb(240, 240, 240);
+}
+
+.headerH1 {
+  margin: 2rem;
+}
+
+a {
+  text-decoration: none !important;
+
+  &:visited {
+    color: inherit !important;
+  }
+}
+
+.sc-digi-button-h .digi-button--variation-primary.sc-digi-button {
+  --digi--button--color--background--primary--default: #{$callToAction};
+  --digi--button--color--background--primary--hover: #{$hover};
+  --digi--button--color--background--primary--focus: #{$callToAction};
+  --digi--button--color--background--primary--active: #{$callToAction};
+
+  --digi--button--color--border--primary--default: #{$callToAction};
+  --digi--button--color--border--primary--hover: #{$callToAction};
+  --digi--button--color--border--primary--focus: #{$callToAction};
+  --digi--button--color--border--primary--active: #{$callToAction};
+
+  --digi--button--color--text--primary--hover: #{$callToAction};
+}
+
+.sc-digi-button-h .digi-button--variation-secondary.sc-digi-button {
+  --digi--button--color--background--secondary--default: #{$secondary};
+  --digi--button--color--background--secondary--hover: #{$hover};
+  --digi--button--color--background--secondary--focus: #{$secondary};
+  --digi--button--color--background--secondary--active: #{$secondary};
+
+  --digi--button--color--border--secondary--default: #{$callToAction};
+  --digi--button--color--border--secondary--hover: #{$callToAction};
+  --digi--button--color--border--secondary--focus: #{$callToAction};
+  --digi--button--color--border--secondary--active: #{$callToAction};
+
+  --digi--button--color--text--secondary--default: #{$callToAction};
+  --digi--button--color--text--secondary--active: #{$callToAction};
+  
+  --digi--button--color--text--secondary--hover:rgb(240, 240, 240);
+  --digi--button--color--icon--secondary--hover:rgb(240, 240, 240);
+}
+
+.sc-digi-expandable-accordion-h .digi-expandable-accordion.sc-digi-expandable-accordion::after {
+  --digi--expandable-accordion--border-bottom-color: #{$callToAction};
+}
+
+.digi-expandable-accordion--variation-primary.sc-digi-expandable-accordion .digi-expandable-accordion__header.sc-digi-expandable-accordion {
+  --digi--expandable-accordion--border-bottom-color: #{$callToAction};
+}
+
+.sc-digi-typography-heading-jumbo-h .digi-typography-heading-jumbo.sc-digi-typography-heading-jumbo::after {
+  --digi--color--background--inverted-1: #{$callToAction};
+}

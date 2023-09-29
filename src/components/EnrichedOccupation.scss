@@ -1,0 +1,16 @@
+@import '../style/variables';
+
+rect {
+  fill: #{$callToAction};
+}
+
+.sc-digi-icon-table-h svg.sc-digi-icon-table {
+  --digi--icon--color: #{$callToAction};
+}
+
+.sc-digi-button-h .digi-button--variation-function.sc-digi-button {
+  --digi--button--color--text--function--default: #{$callToAction};
+  --digi--button--color--text--function--hover: #{$callToAction};
+  --digi--button--color--text--function--focus: #{$callToAction};
+  --digi--button--color--text--function--default: #{$callToAction};
+}
